@@ -10,7 +10,6 @@
 
 namespace uni {
     typedef double hour_value;
-
     class Class {
     private:
         std::string UcCode_;      //code of course unit       (UC)
@@ -21,8 +20,10 @@ namespace uni {
         std::string Type_;        //type of class: T, TP, PL  (Tipo)
     public:
         //constructors
-        Class();
         Class(std::string UcCode, std::string ClassCode, int Weekday, hour_value StartHour, hour_value Duration, std::string Type);
+
+        virtual ~Class();
+
         //getters
         std::string getUC();
         std::string getClass();

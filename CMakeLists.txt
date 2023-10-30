@@ -8,6 +8,7 @@ include_directories(.)
 add_executable(Project1
         Class.cpp
         Class.h
-        main.cpp
+        Controller.cpp
         Student.cpp
-        Student.h)
+        Student.h
+        Schedule.h)
