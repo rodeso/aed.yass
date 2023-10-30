@@ -2,39 +2,39 @@
 // Created by rodri on 24/10/23.
 // Aula
 //
+#ifndef CLASS_H
+#define CLASS_H
 
-#ifndef PROJECT1_CLASS_H
-#define PROJECT1_CLASS_H
 
 #include <string>
+
+using namespace std;
 
 namespace uni {
     typedef double hour_value;
     class Class {
     private:
-        std::string UcCode_;      //code of course unit       (UC)
-        std::string ClassCode_;   //code of the class         (Turma)
-        int Weekday_;             //day of the week           (Dia)
+        string ClassCode_;   //code of the class         (Turma)
+        string UcCode_;      //code of course unit       (UC)
+        string Weekday_;             //day of the week           (Dia)
         hour_value StartHour_;    //start time of the class   (Horário)
         hour_value Duration_;     //duration of the class     (Duração)
-        std::string Type_;        //type of class: T, TP, PL  (Tipo)
+        string Type_;        //type of class: T, TP, PL  (Tipo)
     public:
         //constructors
-        Class(std::string UcCode, std::string ClassCode, int Weekday, hour_value StartHour, hour_value Duration, std::string Type);
+        Class(string UcCode, string ClassCode, string Weekday, hour_value StartHour, hour_value Duration, string Type);
 
         virtual ~Class();
 
         //getters
-        std::string getUC();
-        std::string getClass();
-        std::string getWeekday();
-        int getWeeknumber(std::string day);
-        hour_value getStart();
-        hour_value getDuration();
-        std::string getType();
-
+        string getUcCode() const;
+        string getClass() const;
+        string getWeekday() const;
+        hour_value getStart() const;
+        hour_value getDuration() const;
+        string getType() const;
     };
 
 } // uni
 
-#endif //PROJECT1_CLASS_H
+#endif // CLASS_H

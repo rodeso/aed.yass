@@ -2,14 +2,13 @@
 // Created by rodri on 24/10/23.
 //
 #include <iostream>
-#include "Student.cpp"
-#include "Class.cpp"
 #include <string>
 
 using namespace std;
 
-
+/*
 namespace uni {
+}
 void Controller::parseDataStudent(const std::string& file) {
     std::ifstream fileStream(file); //load do ficheiro
 
@@ -50,7 +49,7 @@ void Controller::parseDataStudent(const std::string& file) {
     }
 }
 
-
+*/
 
 int command() {
     int choice;

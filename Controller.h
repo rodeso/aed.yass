@@ -4,7 +4,7 @@
 
 #ifndef PROJECT1_CONTROLLER_H
 #define PROJECT1_CONTROLLER_H
-
+/*
 namespace uni {
     class Controller {
     public:
@@ -14,5 +14,5 @@ namespace uni {
         parseData
     };
 }
-
+*/
 #endif //PROJECT1_CONTROLLER_H

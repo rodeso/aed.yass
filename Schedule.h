@@ -7,9 +7,9 @@
 
 namespace uni {
     class Schedule {
-    private
+    private:
     public:
-        void addClass()
+        void addClass();
 
 
     };
