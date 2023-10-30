@@ -5,7 +5,7 @@
 #ifndef PROJECT1_STUDENT_H
 #define PROJECT1_STUDENT_H
 
-#include <String>
+#include <string>
 
 namespace uni {
 
@@ -15,8 +15,13 @@ namespace uni {
         std::string StudentName_;   //name of student           (Nome)
         std::string UcCode_;        //code of course unit       (UC)
         std::string ClassCode_      //code of class             (Turma)
-        //UCS que tem
-        //Horário
+        //UCS que tem TIPO ARRAY
+        //Horário MATRIX (?)
+    public:
+        Student();
+        Student(std::string StudentCode, std::string StudentName);
+        void addCourse(std::string UcCode, std::string ClassCode);
+        void addClass(Class c);
     };
 
 } // uni
