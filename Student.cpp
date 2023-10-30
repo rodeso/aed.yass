@@ -13,6 +13,9 @@ namespace uni {
     const std::string &Student::getStudentCode() const {
         return StudentCode_;
     }
+    const string &Student::getStudentName() const {
+        return StudentName_;
+    }
 
     void Student::addCourseUnit(std::string UcCode, std::string ClassCode) {
 

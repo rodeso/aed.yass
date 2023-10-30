@@ -112,7 +112,7 @@ int main() {
     std::vector<uni::Student> students;
     controller.parseDataStudent("/home/rodri/L.EIC/2.1/AED/AED1G135/students_classes.csv", students);
     for (uni::Student student : students) {
-        cout << student.getStudentCode();
+        cout << student.getStudentCode() << ' ' << student.getStudentName();
         cout << '\n';
     }
     //command();
