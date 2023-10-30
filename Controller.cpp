@@ -14,7 +14,7 @@
 using namespace std;
 namespace uni {
     void Controller::parseDataStudent(const std::string &file, vector <Student> &students) {
-        std::ifstream fileStream(file); // Load file
+        ifstream fileStream(file); // Load file
 
         if (!fileStream.is_open()) {
             throw std::runtime_error("Failed to open file");
@@ -22,9 +22,6 @@ namespace uni {
 
         std::string line;
         getline(fileStream, line);
-        if (line != "StudentCode,StudentName,UcCode,ClassCode") { // Check for valid format
-            throw std::runtime_error("Invalid file format");
-        }
 
         while (getline(fileStream, line)) {
             std::istringstream iss(line);
@@ -110,12 +107,13 @@ namespace uni {
         return 0;
     }
 }
-int main() {;
+int main() {
     uni::Controller controller;
     std::vector<uni::Student> students;
-    controller.parseDataStudent("students_classes.csv", students);
+    controller.parseDataStudent("/home/rodri/L.EIC/2.1/AED/AED1G135/students_classes.csv", students);
     for (uni::Student student : students) {
         cout << student.getStudentCode();
+        cout << '\n';
     }
     //command();
     return 0;
