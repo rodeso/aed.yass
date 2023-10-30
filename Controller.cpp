@@ -1,24 +1,29 @@
 //
 // Created by rodri on 24/10/23.
 //
+#include <filesystem>
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <stdexcept>
+#include "Student.h"
+#include "Controller.h"
 
 using namespace std;
 namespace uni {
-    void Controller::parseDataStudent(const std::string &file, vector <Student> students) {
+    void Controller::parseDataStudent(const std::string &file, vector <Student> &students) {
         std::ifstream fileStream(file); // Load file
 
         if (!fileStream.is_open()) {
             throw std::runtime_error("Failed to open file");
-            return;
         }
 
         std::string line;
         getline(fileStream, line);
         if (line != "StudentCode,StudentName,UcCode,ClassCode") { // Check for valid format
             throw std::runtime_error("Invalid file format");
-            return;
         }
 
         while (getline(fileStream, line)) {
@@ -56,8 +61,7 @@ namespace uni {
         int input;
         string estudante, turma, uc;
         do {
-            cout
-                    << "\n 0. Ver Horário de estudante \n 1. Ver horário de Turma \n 2. Alterar Turma de estudante\n 3. Creditos\n 4. Exit\n\n";
+            cout << "\n 0. Ver Horário de estudante \n 1. Ver horário de Turma \n 2. Alterar Turma de estudante\n 3. Creditos\n 4. Exit\n\n";
             cin >> input;
             switch (input) {
                 case 0: {
@@ -77,8 +81,8 @@ namespace uni {
                     cout<<"Insira a turma de que quer ver horario \n";
                     cin>>turma;
                     printhorarioturma(gestor.HorarioTurma(),turma);
+                     */
                     break;
-                    */
                 }
                 case 2: {
                     /*
@@ -103,9 +107,16 @@ namespace uni {
                     return 0;
             }
         } while (input);
+        return 0;
     }
-
-    int main() {
-        command();
+}
+int main() {;
+    uni::Controller controller;
+    std::vector<uni::Student> students;
+    controller.parseDataStudent("students_classes.csv", students);
+    for (uni::Student student : students) {
+        cout << student.getStudentCode();
     }
+    //command();
+    return 0;
 }

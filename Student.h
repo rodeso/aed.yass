@@ -8,6 +8,7 @@
 #include <string>
 #include "Class.h"
 
+using namespace std;
 namespace uni {
 
     class Student {
@@ -19,8 +20,8 @@ namespace uni {
         //UCS que tem TIPO ARRAY
         //Horário MATRIX (?)
     public:
-        Student(std::string StudentCode, std::string StudentName);
-        void addCourseUnit(std::string UcCode, std::string ClassCode);
+        Student(string StudentCode, string StudentName);
+        void addCourseUnit(string UcCode, string ClassCode);
 
         const std::string &getStudentCode() const;
 

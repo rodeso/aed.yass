@@ -9,6 +9,8 @@ add_executable(Project1
         Class.cpp
         Class.h
         Controller.cpp
+        Controller.h
         Student.cpp
         Student.h
-        Schedule.h)
+        Schedule.h
+        )
