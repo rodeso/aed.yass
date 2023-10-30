@@ -6,7 +6,7 @@
 
 namespace uni {
     //constructors
-    Class::Class() {
+   /* Class::Class() {
         UcCode_     =   "L.EIC000";
         ClassCode_  =   "0LEIC00";
         Weekday_    =   0;
@@ -14,7 +14,7 @@ namespace uni {
         Duration_   =   0.0;
         Type_       =   "";
     }
-
+*/
     Class::Class(std::string UcCode, std::string ClassCode, int Weekday, hour_value StartHour, hour_value Duration, std::string Type) {
         UcCode_     =   UcCode;
         ClassCode_  =   ClassCode;
@@ -30,14 +30,23 @@ namespace uni {
     std::string Class::getClass() {             return ClassCode_;
     }
     std::string Class::getWeekday(){
+        std::string day;
         switch (Weekday_) {
-            case 0:                             return "Weekend";
-            case 1:                             return "Monday";
-            case 2:                             return "Tuesday";
-            case 3:                             return "Wednesday";
-            case 4:                             return "Thursday";
-            case 5:                             return "Friday";
+            case 0:day = "Weekend";
+                break;
+            case 1:day = "Monday";
+                break;
+            case 2:day = "Tuesday";
+                break;
+            case 3:day = "Wednesday";
+                break;
+            case 4:day = "Thursday";
+                break;
+            case 5:day = "Friday";
+                break;
+            default:day= "Weekend";
         }
+        return day;
     }
     int Class::getWeeknumber(std::string day) {
         if (day[0] == 'M') {
@@ -65,5 +74,9 @@ namespace uni {
     }
     std::string Class::getType() {
                                                 return Type_;
+    }
+
+    Class::~Class() {
+        delete this;
     }
 } // uni
