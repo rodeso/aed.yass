@@ -3,7 +3,7 @@
 //
 
 #include "Class.h"
-
+/*
 namespace uni {
     //constructors
    /* Class::Class() {
@@ -14,7 +14,7 @@ namespace uni {
         Duration_   =   0.0;
         Type_       =   "";
     }
-*/
+
     Class::Class(std::string UcCode, std::string ClassCode, int Weekday, hour_value StartHour, hour_value Duration, std::string Type) {
         UcCode_     =   UcCode;
         ClassCode_  =   ClassCode;
@@ -80,3 +80,4 @@ namespace uni {
         delete this;
     }
 } // uni
+*/

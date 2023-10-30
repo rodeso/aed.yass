@@ -3,7 +3,7 @@
 //
 
 #include "Student.h"
-
+/*
 namespace uni {
     Student::Student(std::string StudentCode, std::string StudentName) {
         StudentCode_ = StudentCode;
@@ -18,3 +18,5 @@ namespace uni {
 
     }
 } //uni
+
+ */
