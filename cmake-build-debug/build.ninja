@@ -56,8 +56,8 @@ build CMakeFiles/Project1.dir/Class.cpp.o: CXX_COMPILER__Project1_unscanned_Debu
   OBJECT_DIR = CMakeFiles/Project1.dir
   OBJECT_FILE_DIR = CMakeFiles/Project1.dir
 
-build CMakeFiles/Project1.dir/main.cpp.o: CXX_COMPILER__Project1_unscanned_Debug /home/rodri/L.EIC/2.1/AED/Project1/main.cpp || cmake_object_order_depends_target_Project1
-  DEP_FILE = CMakeFiles/Project1.dir/main.cpp.o.d
+build CMakeFiles/Project1.dir/Controller.cpp.o: CXX_COMPILER__Project1_unscanned_Debug /home/rodri/L.EIC/2.1/AED/Project1/Controller.cpp || cmake_object_order_depends_target_Project1
+  DEP_FILE = CMakeFiles/Project1.dir/Controller.cpp.o.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
   INCLUDES = -I/home/rodri/L.EIC/2.1/AED/Project1/.
   OBJECT_DIR = CMakeFiles/Project1.dir
@@ -78,7 +78,7 @@ build CMakeFiles/Project1.dir/Student.cpp.o: CXX_COMPILER__Project1_unscanned_De
 #############################################
 # Link the executable Project1
 
-build Project1: CXX_EXECUTABLE_LINKER__Project1_Debug CMakeFiles/Project1.dir/Class.cpp.o CMakeFiles/Project1.dir/main.cpp.o CMakeFiles/Project1.dir/Student.cpp.o
+build Project1: CXX_EXECUTABLE_LINKER__Project1_Debug CMakeFiles/Project1.dir/Class.cpp.o CMakeFiles/Project1.dir/Controller.cpp.o CMakeFiles/Project1.dir/Student.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Project1.dir
   POST_BUILD = :
