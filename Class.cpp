@@ -3,9 +3,8 @@
 namespace uni {
 
     // Constructor implementation
-    Class::Class(string UcCode, string ClassCode, string Weekday, hour_value StartHour, hour_value Duration, string Type) {
-        UcCode_ = UcCode;
-        ClassCode_ = ClassCode;
+    Class::Class(UC ClassUnit, string Weekday, hour_value StartHour, hour_value Duration, string Type) {
+        ClassUnit_ = ClassUnit;
         Weekday_ = Weekday;
         StartHour_ = StartHour;
         Duration_ = Duration;
@@ -17,12 +16,8 @@ namespace uni {
     }
 
     // Getter methods
-    string Class::getUcCode() const {
-        return UcCode_;
-    }
-
-    string Class::getClass() const {
-        return ClassCode_;
+    UC Class::getUC() const {
+        return ClassUnit_;
     }
 
     string Class::getWeekday() const {

@@ -6,6 +6,7 @@
 #define PROJECT1_STUDENT_H
 
 #include <string>
+#include <list>
 #include "Class.h"
 
 using namespace std;
@@ -13,20 +14,19 @@ namespace uni {
 
     class Student {
     private:
-        std::string StudentCode_;   //code of student           (ID)
-        std::string StudentName_;   //name of student           (Nome)
-        std::string UcCode_;        //code of course unit       (UC)
-        std::string ClassNumber_ ;  //code of class             (Turma)
-        //UCS que tem TIPO ARRAY
+        string StudentCode_;   //code of student           (ID)
+        string StudentName_;   //name of student           (Nome)
+        list<UC> UCList_;
+        //UCS que tem TIPO ARRAY ou uma lista
         //Horário MATRIX (?)
     public:
         Student(string StudentCode, string StudentName);
-        void addCourseUnit(string UcCode, string ClassCode);
+        void addCourseUnit(UC c);
 
-        const std::string &getStudentCode() const;
-        const std::string &getStudentName() const;
+        const string &getStudentCode() const;
+        const string &getStudentName() const;
 
-        void addClass(Class c);
+        void addClass(Class bloco);  //adicionar bloco no horário
     };
 
 } // uni

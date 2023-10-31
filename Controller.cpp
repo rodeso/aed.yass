@@ -9,6 +9,7 @@
 #include <vector>
 #include <stdexcept>
 #include "Student.h"
+#include "UC.h"
 #include "Controller.h"
 
 using namespace std;
@@ -31,12 +32,14 @@ namespace uni {
                 getline(iss, StudentName, ',') &&
                 getline(iss, UcCode, ',') &&
                 getline(iss, ClassCode)) {
+
                 // Check if a student with this StudentCode already exists
                 bool studentExists = false;
                 for (auto &student: students) {
                     if (student.getStudentCode() == StudentCode) {
                         studentExists = true;
-                        student.addCourseUnit(UcCode, ClassCode);
+                        UC newUC(UcCode, ClassCode);
+                        student.addCourseUnit(newUC);
                         break;
                     }
                 }
@@ -44,7 +47,8 @@ namespace uni {
                 // If the student does not exist, create a new Student object
                 if (!studentExists) {
                     Student newStudent(StudentCode, StudentName);
-                    newStudent.addCourseUnit(UcCode, ClassCode);
+                    UC newUC(UcCode, ClassCode);
+                    newStudent.addCourseUnit(newUC);
                     students.push_back(newStudent);
                 }
             } else {
@@ -89,7 +93,6 @@ namespace uni {
                     cin >> uc;
                     cout << "Insira a turma para a qual quer mudar \n";
                     cin >> turma;
-                     ##TODO
                     */
                     break;
                 }
@@ -104,7 +107,6 @@ namespace uni {
                     return 0;
             }
         } while (input);
-        return 0;
     }
 }
 int main() {
@@ -115,6 +117,6 @@ int main() {
         cout << student.getStudentCode() << ' ' << student.getStudentName();
         cout << '\n';
     }
-    //command();
+    uni::command();
     return 0;
 }
