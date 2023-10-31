@@ -24,6 +24,7 @@ namespace uni {
         void addCourseUnit(string UcCode, string ClassCode);
 
         const std::string &getStudentCode() const;
+        const std::string &getStudentName() const;
 
         void addClass(Class c);
     };

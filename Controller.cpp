@@ -12,6 +12,8 @@
 #include "Controller.h"
 
 using namespace std;
+using namespace uni
+
 namespace uni {
     void Controller::parseDataStudent(const std::string &file, vector <Student> &students) {
         ifstream fileStream(file); // Load file
@@ -108,12 +110,6 @@ namespace uni {
     }
 }
 
-#include "Student.h"
-#include <fstream>
-#include <vector>
-
-using namespace std;
-using namespace uni;
 
 vector<Student> Controller::lerEstudantes() {
     string filename = "/home/andre/Desktop/Andre/Trabalho/Faculdade/2ºAno/1ºS/AED/projeto/AED1G135/students_classes.csv";
