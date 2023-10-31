@@ -112,7 +112,9 @@ namespace uni {
     }
 }
 
-
+//LEGACY DO NOT USE UNLESS TESTING
+//DUPLICATED CODE -> SEE ParseDataStudent
+/*
 vector<Student> Controller::lerEstudantes() {
     string filename = "/home/andre/Desktop/Andre/Trabalho/Faculdade/2ºAno/1ºS/AED/projeto/AED1G135/students_classes.csv";
     string StudentCode;
@@ -145,7 +147,7 @@ vector<Student> Controller::lerEstudantes() {
     }
     return estudantes;
 }
-
+*/
 
 
 int main() {
