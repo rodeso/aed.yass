@@ -14,6 +14,7 @@ namespace uni {
         //attributes idk
     public:
         void parseDataStudent(const std::string& file, vector<Student> &students);
+        vector<Student> lerEstudantes();
         //parseDataClasses();
         //parseDataTurmas();
     };
