@@ -13,17 +13,17 @@ namespace uni {
 
     class Student {
     private:
-        std::string StudentCode_;   //code of student           (ID)
-        std::string StudentName_;   //name of student           (Nome)
-        std::string UcCode_;        //code of course unit       (UC)
-        std::string ClassNumber_ ;  //code of class             (Turma)
+        string StudentName_;   //name of student           (Nome)
+        string StudentCode_;   //code of student           (ID)
+
         //UCS que tem TIPO ARRAY
         //Horário MATRIX (?)
     public:
         Student(string StudentCode, string StudentName);
         void addCourseUnit(string UcCode, string ClassCode);
 
-        const std::string &getStudentCode() const;
+        const string &getStudentCode() const;
+        const string &getStudentName() const;
 
         void addClass(Class c);
     };

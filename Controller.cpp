@@ -10,8 +10,11 @@
 #include <stdexcept>
 #include "Student.h"
 #include "Controller.h"
+#include "Class.h"
 
 using namespace std;
+using namespace uni;
+
 namespace uni {
     void Controller::parseDataStudent(const std::string &file, vector <Student> &students) {
         ifstream fileStream(file); // Load file
@@ -108,21 +111,60 @@ namespace uni {
     }
 }
 
-#include "Student.h"
+
+
+//ler class
+
 #include <fstream>
 #include <vector>
+#include <iostream>
 
-using namespace std;
-using namespace uni;
+vector<Class> Controller::readClasses() {
+    string filename = "../classes.csv";
+    string ClassCode;
+    string UcCode;
+    string Weekday;
+    string StartHour;
+    string Duration;
+    string Type;
 
-vector<Student> Controller::lerEstudantes() {
-    string filename = "/home/andre/Desktop/Andre/Trabalho/Faculdade/2ºAno/1ºS/AED/projeto/AED1G135/students_classes.csv";
+    vector<Class> classes;
+    string dummy;
+
+    ifstream input(filename);
+    if (input.is_open()) {
+        getline(input, dummy);
+        while(input.good()) {
+            getline(input, ClassCode, ',');
+            getline(input, UcCode, ',');
+            getline(input, Weekday, ',');
+            getline(input, StartHour, ',');
+            getline(input, Duration, ',');
+            getline(input, Type, '\n');
+
+            hour_value startHourValue = stod(StartHour);
+            hour_value durationValue = stod(Duration);
+            Class currentClass(UcCode, ClassCode, Weekday, startHourValue, durationValue, Type);
+            classes.push_back(currentClass);
+        }
+
+    } else {
+        cout << "ERROR: File Not Open" << '\n';
+    }
+    input.close();
+    return classes;
+}
+
+
+
+vector<Student> Controller::readStudents() {
+    string filename = "../students_classes.csv";
     string StudentCode;
     string StudentName;
     string UcCode;
     string ClassCode;
 
-    vector<Student> estudantes;
+    vector<Student> students;
     string dummy;
 
     ifstream input(filename);
@@ -134,27 +176,35 @@ vector<Student> Controller::lerEstudantes() {
             getline(input, UcCode, ',');
             getline(input, ClassCode, '\n');
 
-            Student estudante(StudentCode, StudentName);
-            estudante.addCourseUnit(UcCode, ClassCode);
-            // If there's a function like `addClass` you want to use, call it here.
-            // estudante.addClass(...);
-
-            estudantes.push_back(estudante);
+            Student student(StudentCode, StudentName);
+            student.addCourseUnit(UcCode, ClassCode);
+            students.push_back(student);
         }
         input.close();
     } else {
         cout << "ERROR: File Not Open" << '\n';
     }
-    return estudantes;
+    return students;
 }
 
+/*
+
+set<StudentClass> Controller::ClassSchedule() {
+    vector<Student> students = readStudents();
+    
+}
+*/
 
 
 int main() {
     //get the data from the return estudantes
     Controller controller;
-    vector<Student> estudantes = controller.lerEstudantes();
+    vector<Student> estudantes = controller.readStudents();
     for(const Student &estudante : estudantes){
-        cout << estudante.getStudentCode() << endl;
+        cout << estudante.getStudentName() << endl;
     };
+    vector<Class> classes = controller.readClasses();
+    for(const Class &classe : classes){
+        cout << classe.getClass() << endl;
+    }
 }

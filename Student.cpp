@@ -4,17 +4,28 @@
 
 #include "Student.h"
 
+using namespace std;
+
 namespace uni {
-    Student::Student(std::string StudentCode, std::string StudentName) {
+    Student::Student(string StudentCode, string StudentName) {
         StudentCode_ = StudentCode;
         StudentName_ = StudentName;
+
     }
 
-    const std::string &Student::getStudentCode() const {
+    const string &Student::getStudentCode() const {
         return StudentCode_;
     }
 
-    void Student::addCourseUnit(std::string UcCode, std::string ClassCode) {
+    const string &Student::getStudentName() const {
+        return StudentName_;
+    }
+
+
+
+
+
+    void Student::addCourseUnit(string UcCode, string ClassCode) {
 
     }
 } //uni
