@@ -93,6 +93,7 @@ namespace uni {
                     cin >> uc;
                     cout << "Insira a turma para a qual quer mudar \n";
                     cin >> turma;
+                     ##TODO
                     */
                     break;
                 }
@@ -107,8 +108,46 @@ namespace uni {
                     return 0;
             }
         } while (input);
+        return 0;
     }
 }
+
+
+vector<Student> Controller::lerEstudantes() {
+    string filename = "/home/andre/Desktop/Andre/Trabalho/Faculdade/2ºAno/1ºS/AED/projeto/AED1G135/students_classes.csv";
+    string StudentCode;
+    string StudentName;
+    string UcCode;
+    string ClassCode;
+
+    vector<Student> estudantes;
+    string dummy;
+
+    ifstream input(filename);
+    if (input.is_open()) {
+        getline(input, dummy);  // Skip header line
+        while(input.good()) {
+            getline(input, StudentCode, ',');
+            getline(input, StudentName, ',');
+            getline(input, UcCode, ',');
+            getline(input, ClassCode, '\n');
+
+            Student estudante(StudentCode, StudentName);
+            estudante.addCourseUnit(UcCode, ClassCode);
+            // If there's a function like `addClass` you want to use, call it here.
+            // estudante.addClass(...);
+
+            estudantes.push_back(estudante);
+        }
+        input.close();
+    } else {
+        cout << "ERROR: File Not Open" << '\n';
+    }
+    return estudantes;
+}
+
+
+
 int main() {
     uni::Controller controller;
     std::vector<uni::Student> students;
