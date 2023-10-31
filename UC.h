@@ -16,8 +16,12 @@ namespace uni {
         string ClassCode_;   //code of the class         (Turma)
 
     public:
+        // Overload the equality (==) operator
+        bool operator==(const UC& other) const;
+        //CONSTRUCTORS
         UC();
         UC(string UcCode, string ClassCode);
+        //GETTERS
         string getUcCode() const;
         string getClass() const;
     };

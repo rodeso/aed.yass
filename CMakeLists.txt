@@ -14,4 +14,5 @@ add_executable(Project1
         Student.h
         Schedule.h
         UC.cpp
+        Schedule.cpp
 )

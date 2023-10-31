@@ -5,6 +5,10 @@
 #include "UC.h"
 
 namespace uni {
+    bool UC::operator==(const UC& other) const {
+        return (UcCode_ == other.UcCode_) && (ClassCode_ == other.ClassCode_);
+    }
+
     UC::UC() {
         UcCode_ = "";
         ClassCode_ = "";
