@@ -112,5 +112,5 @@ fabric.properties
 .idea/**/azureSettings.xml
 
 ##CMAKE
-cmake-build-debug
+cmake-build-debug/**
 # End of https://www.toptal.com/developers/gitignore/api/clion

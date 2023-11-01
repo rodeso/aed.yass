@@ -1,7 +1,9 @@
 //
 // Created by rodri on 01/11/23.
 //
+#include <iostream>
 #include "Student.h"
+
 using namespace std;
 namespace uni {
     //CONSTRUCTOR
@@ -28,15 +30,29 @@ namespace uni {
         return UCList_;
     }
 
-    const Schedule& Student::getSchedule() const {
+    const vector<Class>& Student::getSchedule() const {
         return studentSchedule_;
     }
     //SETTERS
     void Student::addCourseUnit(const UC& c) {
         UCList_.push_back(c);
     }
-    void Student::setSchedule(const Schedule& schedule) {
+    void Student::setSchedule(const vector<Class>& schedule) {
         studentSchedule_ = schedule;
+    }
+
+    void Student::displaySchedule() const {
+        cout << "Student's Schedule:\n";
+
+        for (const Class& classInfo : studentSchedule_) {
+            cout << "Class Code: " << classInfo.getUC().getClass() << endl;
+            cout << "UC Code: " << classInfo.getUC().getUcCode() << endl;
+            cout << "Weekday: " << classInfo.getWeekday() << endl;
+            cout << "Start Hour: " << classInfo.getStart() << endl;
+            cout << "Duration: " << classInfo.getDuration() << " hours" << endl;
+            cout << "Type: " << classInfo.getType() << endl;
+            cout << "---------------------\n";
+        }
     }
 
 } //uni

@@ -10,4 +10,5 @@ add_executable(AED1G135
         Schedule.h
         Schedule.cpp
         Student.cpp
-        Controller.cpp)
+        Controller.cpp
+        main.cpp)

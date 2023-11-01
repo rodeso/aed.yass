@@ -17,13 +17,15 @@ using namespace std;
 namespace uni {
     class Controller {
     private:
-
+        vector<Student> UNIStudents_;
+        vector<Class> UNIClasses_;
     public:
-        void parseDataStudent(const string& file, vector<Student> &students);
-        vector<Student> lerEstudantes();
-        void parseDataClasses(const string& file, vector<Class> &classes);
-        void generateStudentSchedules(vector<Student>& students, const vector<Class>& classes);
+        void parseDataStudent(const string& file);
+        void parseDataClasses(const string& file);
+        void generateStudentSchedule(Student& student);
+        int command();
 
+        vector<Student> lerEstudantes();
         //parseDataTurmas();
     };
 }

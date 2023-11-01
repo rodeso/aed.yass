@@ -16,7 +16,7 @@
 
 using namespace std;
 namespace uni {
-    void Controller::parseDataStudent(const string &file, vector <Student> &students) {
+    void Controller::parseDataStudent(const string &file) {
         ifstream fileStream(file); // Load file
 
         if (!fileStream.is_open()) {
@@ -37,7 +37,7 @@ namespace uni {
 
                 // Check if a student with this StudentCode already exists
                 bool studentExists = false;
-                for (auto &student: students) {
+                for (auto &student: UNIStudents_) {
                     if (student.getStudentCode() == StudentCode) {
                         studentExists = true;
                         UC newUC(UcCode, ClassCode);
@@ -52,14 +52,14 @@ namespace uni {
                     vector<UC> UCList;
                     UCList.push_back(newUC);
                     Student newStudent(StudentCode, StudentName, UCList);
-                    students.push_back(newStudent);
+                    UNIStudents_.push_back(newStudent);
                 }
             } else {
                 throw std::runtime_error("Error parsing line");
             }
         }
     }
-    void Controller::parseDataClasses(const string &file, vector<Class> &classes) {
+    void Controller::parseDataClasses(const string &file) {
         ifstream fileStream(file); // Load file
 
         if (!fileStream.is_open()) {
@@ -84,62 +84,58 @@ namespace uni {
                 hour_value durationValue = stod(Duration);
                 UC newUC(UcCode, ClassCode);
                 Class newClass(newUC, Weekday, startHourValue, durationValue, Type);
-                classes.push_back(newClass);
+                UNIClasses_.push_back(newClass);
             } else {
                 throw std::runtime_error("Error parsing line");
             }
         }
     }
-    void generateStudentSchedules(vector<Student>& students, const vector<Class>& classes) {
-        for (Student& student : students) {
-            // For each student, initialize their schedule
-            Schedule studentSchedule;
+    void Controller::generateStudentSchedule(Student& student) {
 
-            for (const UC& studentUC : student.getUCList()) {
-                for (const Class& currentClass : classes) {
-                    if (studentUC == currentClass.getUC()) {
-                        // If both UC code and Class code match, add the class to the student's schedule
-                        studentSchedule.addClass(currentClass);
-                    }
+        vector<Class> studentSchedule;
+
+        for (const UC& studentUC : student.getUCList()) {
+            for (const Class& currentClass : UNIClasses_) {
+                UC classUC = currentClass.getUC();
+
+                if (studentUC == classUC) {
+                    cout << currentClass.getUC().getUcCode() << endl;
+                    studentSchedule.push_back(currentClass);
                 }
-            }
 
-            // Assign the schedule to the student
-            student.setSchedule(studentSchedule);
+            }
         }
+
+        student.setSchedule(studentSchedule);
     }
 
-    int command() {
+    int Controller::command() {
         int input;
         string estudante, turma, uc;
 
-        uni::Controller controller;
 
-        vector<uni::Student> students;
-        controller.parseDataStudent("../students_classes.csv", students);
+        parseDataStudent("../students_classes.csv");
 /*
-        for (uni::Student student : students) {
+        for (uni::Student student : UNIstudents_) {
             cout << student.getStudentCode() << ' ' << student.getStudentName();
             cout << '\n';
         }
 */
-        vector<uni::Class> classes;
-        controller.parseDataClasses("../classes.csv", classes);
+        parseDataClasses("../classes.csv");
 /*
         for (uni::Class currentClass : classes) {
             cout << currentClass.getUC().getUcCode() << ' ' << currentClass.getWeekday();
             cout << '\n';
         }
 */
-        generateStudentSchedules(students, classes);
-
-        for (const uni::Student& currentStudent : students) {
+/*
+        for (const uni::Student& currentStudent : UNIStudents_) {
             cout << currentStudent.getStudentCode() << '\n';
             for (const UC& c : currentStudent.getUCList()) {
                 cout << c.getUcCode() << ' ' <<c.getClass() << '\n';
             }
         }
-
+*/
         do {
             cout << "\n 0. Ver Horário de estudante \n 1. Ver horário de Turma \n 2. Alterar Turma de estudante\n 3. Creditos\n 4. Exit\n\n";
             cin >> input;
@@ -151,7 +147,7 @@ namespace uni {
                     Student selectedStudent;
                     bool studentFound = false;
 
-                    for (const Student& student : students) {
+                    for (const Student& student : UNIStudents_) {
                         if (student.getStudentCode() == estudante) {
                             selectedStudent = student;
                             studentFound = true;
@@ -160,9 +156,12 @@ namespace uni {
                     }
 
                     if (studentFound) {
-                        // Retrieve and display the student's schedule
-                        Schedule studentSchedule = selectedStudent.getSchedule();
-                        studentSchedule.displaySchedule(); // Implement a display method in your Schedule class
+                        generateStudentSchedule(selectedStudent);
+
+                        // Display the schedule
+                        cout << "Student's Schedule for " << selectedStudent.getStudentCode() << ":\n";
+                        selectedStudent.displaySchedule();
+
                     } else {
                         cout << "Student not found." << endl;
                     }
@@ -242,7 +241,3 @@ vector<Student> Controller::lerEstudantes() {
     return estudantes;
 }
 */
-int main() {
-    uni::command();
-    return 0;
-}
