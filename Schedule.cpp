@@ -10,11 +10,9 @@ using namespace std;
 
 namespace uni {
     Schedule::Schedule() {
-        // Initialize the schedule as needed
     }
 
     void Schedule::addClass(const uni::Class &classInfo) {
-        // Add a class to the schedule
         classes_.push_back(classInfo);
     }
 
@@ -22,21 +20,16 @@ namespace uni {
         return classes_;
     }
     void Schedule::sortSchedule() {
-        // Define a custom order for the weekdays
         const vector<string> customWeekdayOrder = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 
-        // Define a custom comparison function for sorting
         auto compareClasses = [&customWeekdayOrder](const Class& class1, const Class& class2) {
-            // Get the positions of the weekdays in the custom order
             auto pos1 = find(customWeekdayOrder.begin(), customWeekdayOrder.end(), class1.getWeekday());
             auto pos2 = find(customWeekdayOrder.begin(), customWeekdayOrder.end(), class2.getWeekday());
 
             if (pos1 == customWeekdayOrder.end() || pos2 == customWeekdayOrder.end()) {
-                // Handle invalid weekdays
                 return false;
             }
 
-            // Compare the positions of the weekdays in the custom order
             if (pos1 < pos2) {
                 return true;
             }
@@ -44,7 +37,6 @@ namespace uni {
                 return false;
             }
 
-            // If the days are the same, compare by start time
             if (class1.getStart() < class2.getStart()) {
                 return true;
             }
@@ -52,22 +44,18 @@ namespace uni {
                 return false;
             }
 
-            // Handle overlapping classes of specific types
             if (
                     (class1.getType() == "T" && class2.getType() == "TP") ||
                     (class1.getType() == "TP" && class2.getType() == "T") ||
                     (class1.getType() == "T" && class2.getType() == "T") ||
                     (class1.getType() == "T" && class2.getType() == "PL")
                     ) {
-                // Handle overlapping of non-allowed types
                 return false;
             }
 
-            // By default, consider the classes as equal
             return false;
         };
 
-        // Sort the classes in the schedule using the custom comparison function
         sort(classes_.begin(), classes_.end(), compareClasses);
     }
 
@@ -89,6 +77,7 @@ namespace uni {
         }
         return false;
     }
+
     void Schedule::displaySchedule() const {
         cout << "Student's Schedule:\n";
 

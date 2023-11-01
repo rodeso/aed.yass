@@ -25,9 +25,6 @@ namespace uni {
         void generateStudentSchedule(Student& student);
         void generateClassSchedule(const string& classCode);
         int command();
-
-        vector<Student> lerEstudantes();
-        //parseDataTurmas();
     };
 }
 

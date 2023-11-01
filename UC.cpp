@@ -26,8 +26,7 @@ namespace uni {
         return UcCode_;
     }
     string normalizeString(const std::string& str) {
-        // Remove trailing control characters, including carriage return and newline
-        std::string result = str;
+        string result = str;
         while (!result.empty() && (result.back() == '\r' || result.back() == '\n')) {
             result.pop_back();
         }

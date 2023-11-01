@@ -18,10 +18,10 @@
 using namespace std;
 namespace uni {
     void Controller::parseDataStudent(const string &file) {
-        ifstream fileStream(file); // Load file
+        ifstream fileStream(file);
 
         if (!fileStream.is_open()) {
-            throw runtime_error("Failed to open file");
+            throw runtime_error("O ficheiro não abriu");
         }
 
         string line;
@@ -35,8 +35,6 @@ namespace uni {
                 getline(iss, StudentName, ',') &&
                 getline(iss, UcCode, ',') &&
                 getline(iss, ClassCode, '\n')) {
-
-                // Check if a student with this StudentCode already exists
                 bool studentExists = false;
                 for (auto &student: UNIStudents_) {
                     if (student.getStudentCode() == StudentCode) {
@@ -46,8 +44,6 @@ namespace uni {
                         break;
                     }
                 }
-
-                // If the student does not exist, create a new Student object
                 if (!studentExists) {
                     UC newUC(UcCode, ClassCode);
                     vector<UC> UCList;
@@ -56,12 +52,13 @@ namespace uni {
                     UNIStudents_.push_back(newStudent);
                 }
             } else {
-                throw std::runtime_error("Error parsing line");
+                throw runtime_error("Erro na linha");
             }
         }
     }
+
     void Controller::parseDataClasses(const string &file) {
-        ifstream fileStream(file); // Load file
+        ifstream fileStream(file);
 
         if (!fileStream.is_open()) {
             throw std::runtime_error("Failed to open file");
@@ -87,16 +84,9 @@ namespace uni {
                 Class newClass(newUC, Weekday, startHourValue, durationValue, Type);
                 UNIClasses_.push_back(newClass);
             } else {
-                throw std::runtime_error("Error parsing line");
+                throw runtime_error("Erro na linha");
             }
         }
-    }
-    //TOOL
-    void hexDump(const std::string& str) {
-        for (char c : str) {
-            std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(c) << " ";
-        }
-        std::cout << std::dec << std::endl;
     }
 
     void Controller::generateStudentSchedule(Student& student) {
@@ -108,12 +98,11 @@ namespace uni {
                 if (studentUC == currentClass.getUC()) {
                     studentSchedule.addClass(currentClass);
                 }
-
             }
         }
-
         student.setSchedule(studentSchedule);
     }
+
     void Controller::generateClassSchedule(const string& classCode) {
 
         Schedule classSchedule;
@@ -121,7 +110,6 @@ namespace uni {
         for (const Class& currentClass : UNIClasses_) {
             if (currentClass.getUC().getClass() == classCode) {
                 classSchedule.addClass(currentClass);
-                // Found a class matching the given class code
             }
         }
         classSchedule.sortSchedule();
@@ -133,43 +121,23 @@ namespace uni {
         int input;
         string estudante, turma, uc;
 
-
         parseDataStudent("../students_classes.csv");
-/*
-        for (uni::Student student : UNIstudents_) {
-            cout << student.getStudentCode() << ' ' << student.getStudentName();
-            cout << '\n';
-        }
-*/
         parseDataClasses("../classes.csv");
-/*
-        for (uni::Class currentClass : classes) {
-            cout << currentClass.getUC().getUcCode() << ' ' << currentClass.getWeekday();
-            cout << '\n';
-        }
-*/
-/*
-        for (const uni::Student& currentStudent : UNIStudents_) {
-            cout << currentStudent.getStudentCode() << '\n';
-            for (const UC& c : currentStudent.getUCList()) {
-                cout << c.getUcCode() << ' ' <<c.getClass() << '\n';
-            }
-        }
-*/
+
         while(true) {
             cout << "\n ";
-            cout << "0. Ver Horário de estudante \n ";
-            cout << "1. Ver horário de Turma \n ";
-            cout << "2. Alterar Turma de estudante\n ";
-            cout << "3. Creditos\n ";
-            cout << "4. Exit\n";
+            cout << "1. Ver Horário de Estudante \n ";
+            cout << "2. Ver Horário de Turma \n ";
+            cout << "3. Alterar Turma de Estudante\n ";
+            cout << "4. Créditos\n ";
+            cout << "0. Sair\n";
             cout << "\n";
             cin >> input;
             commandHistory.push(input);
             switch (input) {
-                case 0: {
+                case 1: {
 
-                    cout << "Insira o numero de estudante \n";
+                    cout << "Insira o número de estudante \n";
                     cin>>estudante;
                     Student selectedStudent;
                     bool studentFound = false;
@@ -186,43 +154,41 @@ namespace uni {
                         generateStudentSchedule(selectedStudent);
 
                         // Display the schedule
-                        cout << "Student's Schedule for " << selectedStudent.getStudentCode() << ":\n";
+                        cout << "Horário do estudante n.º " << selectedStudent.getStudentCode() << ":\n";
                         Schedule schedule = selectedStudent.getSchedule();
                         schedule.sortSchedule();
                         schedule.displaySchedule();
 
                     } else {
-                        cout << "Student not found." << endl;
+                        cout << "Estudante não encontrado" << endl;
                     }
                     break;
 
                 }
-                case 1: {
+                case 2: {
 
-                    cout<<"Insira a turma de que quer ver horario \n";
+                    cout<<"Insira a turma que pretende consultar \n";
                     cin>>turma;
                     generateClassSchedule(turma);
 
                     break;
                 }
-                case 2: {
-                    /*
-                    cout << "Insira o numero de estudante\n";
+                case 3: {
+                    cout << "Insira o número de estudante\n";
                     cin >> estudante;
                     cout << "Insira a UC de que pretende alterar a turma\n";
                     cin >> uc;
                     cout << "Insira a turma para a qual quer mudar \n";
                     cin >> turma;
                      ##TODO
-                    */
                     break;
                 }
-                case 3:
-                    cout << "Done by André de Sousa, Álvaro Pacheco and Rodrigo de Sousa\n";
-                    cout << "Group 135\n";
-                    break;
                 case 4:
-                    cout << "Thank you for using our service. Goodbye!\n";
+                    cout << "Feito por André de Sousa, Álvaro Pacheco e Rodrigo de Sousa\n";
+                    cout << "Grupo 135\n";
+                    break;
+                case 5:
+                    cout << "Obrigado por usar os nossos serviços. Adeus!\n";
                     return 0;
                 default:
                     return 0;
@@ -231,39 +197,3 @@ namespace uni {
     }
 }
 
-//LEGACY DO NOT USE UNLESS TESTING
-//DUPLICATED CODE -> SEE ParseDataStudent
-/*
-vector<Student> Controller::lerEstudantes() {
-    string filename = "/home/andre/Desktop/Andre/Trabalho/Faculdade/2ºAno/1ºS/AED/projeto/AED1G135/students_classes.csv";
-    string StudentCode;
-    string StudentName;
-    string UcCode;
-    string ClassCode;
-
-    vector<Student> estudantes;
-    string dummy;
-
-    ifstream input(filename);
-    if (input.is_open()) {
-        getline(input, dummy);  // Skip header line
-        while(input.good()) {
-            getline(input, StudentCode, ',');
-            getline(input, StudentName, ',');
-            getline(input, UcCode, ',');
-            getline(input, ClassCode, '\n');
-
-            Student estudante(StudentCode, StudentName);
-            estudante.addCourseUnit(UcCode, ClassCode);
-            // If there's a function like `addClass` you want to use, call it here.
-            // estudante.addClass(...);
-
-            estudantes.push_back(estudante);
-        }
-        input.close();
-    } else {
-        cout << "ERROR: File Not Open" << '\n';
-    }
-    return estudantes;
-}
-*/
