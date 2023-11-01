@@ -124,6 +124,7 @@ namespace uni {
                 // Found a class matching the given class code
             }
         }
+        classSchedule.sortSchedule();
         classSchedule.displaySchedule();
     }
 
@@ -187,6 +188,7 @@ namespace uni {
                         // Display the schedule
                         cout << "Student's Schedule for " << selectedStudent.getStudentCode() << ":\n";
                         Schedule schedule = selectedStudent.getSchedule();
+                        schedule.sortSchedule();
                         schedule.displaySchedule();
 
                     } else {

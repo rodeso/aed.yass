@@ -22,13 +22,25 @@ namespace uni {
         return classes_;
     }
     void Schedule::sortSchedule() {
+        // Define a custom order for the weekdays
+        const vector<string> customWeekdayOrder = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+
         // Define a custom comparison function for sorting
-        auto compareClasses = [](const Class& class1, const Class& class2) {
-            // First, compare by day of the week (e.g., Monday, Tuesday, etc.)
-            if (class1.getWeekday() < class2.getWeekday()) {
+        auto compareClasses = [&customWeekdayOrder](const Class& class1, const Class& class2) {
+            // Get the positions of the weekdays in the custom order
+            auto pos1 = find(customWeekdayOrder.begin(), customWeekdayOrder.end(), class1.getWeekday());
+            auto pos2 = find(customWeekdayOrder.begin(), customWeekdayOrder.end(), class2.getWeekday());
+
+            if (pos1 == customWeekdayOrder.end() || pos2 == customWeekdayOrder.end()) {
+                // Handle invalid weekdays
+                return false;
+            }
+
+            // Compare the positions of the weekdays in the custom order
+            if (pos1 < pos2) {
                 return true;
             }
-            if (class1.getWeekday() > class2.getWeekday()) {
+            if (pos1 > pos2) {
                 return false;
             }
 
