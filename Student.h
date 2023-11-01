@@ -6,7 +6,7 @@
 #define AED1G135_STUDENT_H
 
 #include <string>
-#include <vector>
+#include <list>
 #include "UC.h"
 #include "Schedule.h"
 
@@ -17,22 +17,21 @@ namespace uni {
     private:
         string StudentCode_;        //code of student           (ID)
         string StudentName_;        //name of student           (Nome)
-        vector<UC> UCList_;           //UCS que tem TIPO ARRAY ou uma lista
+        list<UC> UCList_;           //UCS que tem TIPO ARRAY ou uma lista
         Schedule studentSchedule_;  //Horário MATRIX (?)
     public:
         //CONSTRUCTOR
         Student();
-        Student(string StudentCode, string StudentName, vector<UC> UCList);
+        Student(string StudentCode, string StudentName, list<UC> UCList);
         //GETTERS
         const string &getStudentCode() const;
         const string &getStudentName() const;
-        const vector<UC>& getUCList() const;
+        const list<UC>& getUCList() const;
         const Schedule& getSchedule() const;
         //SETTERS
         void addCourseUnit(const UC& c);
+        void removeCourseUnit(const UC& c);
         void setSchedule(const Schedule& schedule);
-
-        void displaySchedule() const;
 
     };
 

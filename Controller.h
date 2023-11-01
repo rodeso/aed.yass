@@ -19,9 +19,11 @@ namespace uni {
     private:
         vector<Student> UNIStudents_;
         vector<Class> UNIClasses_;
+        vector<UC> UNIUCs_;
     public:
         void parseDataStudent(const string& file);
         void parseDataClasses(const string& file);
+        void parseDataUCs(const string& file);
         void generateStudentSchedule(Student& student);
         void generateClassSchedule(const string& classCode);
         int command();

@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <list>
 #include <vector>
 #include <stdexcept>
 #include <stack>
@@ -46,7 +47,7 @@ namespace uni {
                 }
                 if (!studentExists) {
                     UC newUC(UcCode, ClassCode);
-                    vector<UC> UCList;
+                    list<UC> UCList;
                     UCList.push_back(newUC);
                     Student newStudent(StudentCode, StudentName, UCList);
                     UNIStudents_.push_back(newStudent);
@@ -89,6 +90,30 @@ namespace uni {
         }
     }
 
+    void Controller::parseDataUCs(const string& file) {
+        ifstream fileStream(file);
+
+        if (!fileStream.is_open()) {
+            throw runtime_error("Failed to open file");
+        }
+
+        string line;
+        getline(fileStream, line);  // Skip the header line
+
+        while (getline(fileStream, line)) {
+            istringstream iss(line);
+            string UcCode, ClassCode;
+
+            if (getline(iss, UcCode, ',') &&
+                getline(iss, ClassCode, ',')) {
+
+                UC newUC(UcCode, ClassCode);
+                UNIUCs_.push_back(newUC);
+            } else {
+                throw runtime_error("Error parsing line");
+            }
+        }
+    }
     void Controller::generateStudentSchedule(Student& student) {
 
         Schedule studentSchedule;
@@ -123,6 +148,7 @@ namespace uni {
 
         parseDataStudent("../students_classes.csv");
         parseDataClasses("../classes.csv");
+        parseDataUCs("../classes_per_uc.csv");
 
         while(true) {
             cout << "\n ";
@@ -180,7 +206,66 @@ namespace uni {
                     cin >> uc;
                     cout << "Insira a turma para a qual quer mudar \n";
                     cin >> turma;
-                     ##TODO
+
+                    // Find the selected student
+                    Student* selectedStudent = nullptr;
+                    for (auto& student : UNIStudents_) {
+                        if (student.getStudentCode() == estudante) {
+                            selectedStudent = &student;
+                            break;
+                        }
+                    }
+
+                    if (selectedStudent) {
+                        // Find the selected UC in the student's UC list
+                        const UC* selectedUC = nullptr;
+                        for (auto& uu : selectedStudent->getUCList()) {
+                            if (uu.getUcCode() == uc) {
+                                selectedUC = &uu;
+                                break;
+                            }
+                        }
+
+                        if (selectedUC) {
+                            // Find the enrolling class
+                            UC enrollingClass;
+                            bool classFound = false;
+                            for (const UC& nu : UNIUCs_) {
+                                if (nu.getClass() == turma) {
+                                    enrollingClass = nu;
+                                    classFound = true;
+                                    break;
+                                }
+                            }
+
+                            if (classFound) {
+                                bool compatibleSchedule = true;
+                                // Modify the student's UC list
+                                for (const Class& currentClass : UNIClasses_) {
+                                    if (enrollingClass == currentClass.getUC()) {
+                                        if (selectedStudent->getSchedule().isClassOverlapping(currentClass)) {
+                                            compatibleSchedule = false;
+                                            break;
+
+                                        }
+                                    }
+                                }
+                                if (!compatibleSchedule) {
+                                    cout << "Horário não funciona";
+                                } else {
+                                    selectedStudent->addCourseUnit(enrollingClass);
+                                    selectedStudent->removeCourseUnit(*selectedUC);
+                                }
+
+                            } else {
+                                cout << "Turma não existe.\n";
+                            }
+                        } else {
+                            cout << "Estudante não se encontra inscrito nessa UC.\n";
+                        }
+                    } else {
+                        cout << "Estudante não encontrado.\n";
+                    }
                     break;
                 }
                 case 4:
