@@ -1,35 +1,42 @@
 //
-// Created by rodri on 24/10/23.
+// Created by rodri on 01/11/23.
 //
 
-#ifndef PROJECT1_STUDENT_H
-#define PROJECT1_STUDENT_H
+#ifndef AED1G135_STUDENT_H
+#define AED1G135_STUDENT_H
 
 #include <string>
-#include <list>
-#include "Class.h"
+#include <vector>
+#include "UC.h"
+#include "Schedule.h"
 
 using namespace std;
 namespace uni {
 
     class Student {
     private:
-        string StudentCode_;   //code of student           (ID)
-        string StudentName_;   //name of student           (Nome)
-        list<UC> UCList_;
-        //UCS que tem TIPO ARRAY ou uma lista
-        //Horário MATRIX (?)
+        string StudentCode_;        //code of student           (ID)
+        string StudentName_;        //name of student           (Nome)
+        vector<UC> UCList_;           //UCS que tem TIPO ARRAY ou uma lista
+        Schedule studentSchedule_;  //Horário MATRIX (?)
     public:
-        Student(string StudentCode, string StudentName);
-        void addCourseUnit(UC c);
-
+        //CONSTRUCTOR
+        Student();
+        Student(string StudentCode, string StudentName, vector<UC> UCList);
+        //GETTERS
         const string &getStudentCode() const;
         const string &getStudentName() const;
+        const vector<UC>& getUCList() const;
+        const Schedule& getSchedule() const;
+        //SETTERS
+        void addCourseUnit(const UC& c);
+        void setSchedule(const Schedule& schedule);
 
-        void addClass(Class bloco);  //adicionar bloco no horário
+
+
     };
+
 
 } // uni
 
-
-#endif //PROJECT1_STUDENT_H
+#endif //AED1G135_STUDENT_H

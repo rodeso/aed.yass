@@ -1,17 +1,13 @@
 cmake_minimum_required(VERSION 3.26)
-project(Project1)
+project(AED1G135)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
-include_directories(.)
-
-add_executable(Project1
-        Class.cpp
-        Class.h
-        Controller.cpp
-        Controller.h
-        Student.cpp
+add_executable(AED1G135
         Student.h
-        Schedule.h
         UC.cpp
-)
+        Class.cpp
+        Schedule.h
+        Schedule.cpp
+        Student.cpp
+        Controller.cpp)

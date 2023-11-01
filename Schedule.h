@@ -1,17 +1,27 @@
 //
-// Created by rodri on 27/10/23.
+// Created by rodri on 01/11/23.
 //
 
-#ifndef PROJECT1_SCHEDULE_H
-#define PROJECT1_SCHEDULE_H
+#ifndef AED1G135_SCHEDULE_H
+#define AED1G135_SCHEDULE_H
 
+#include <vector>
+#include "Class.h" // Include the Class class header
+
+using namespace std;
 namespace uni {
     class Schedule {
-    private:
     public:
-        void addClass();
+        Schedule(); // Constructor
+        void addClass(const Class &classInfo); // Add a class to the schedule
+        const vector<Class> &getClasses() const; // Get the list of classes in the schedule
+        void sortSchedule();
+        bool isClassOverlapping(const Class& newClass) const;
+        void displaySchedule() const;
 
-
+    private:
+        vector<Class> classes_; // List of classes in the schedule
     };
 }
-#endif //PROJECT1_SCHEDULE_H
+
+#endif //AED1G135_SCHEDULE_H

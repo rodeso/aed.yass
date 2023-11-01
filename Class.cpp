@@ -1,9 +1,15 @@
+//
+// Created by rodri on 01/11/23.
+//
+
 #include "Class.h"
+
+using namespace std;
 
 namespace uni {
 
     // Constructor implementation
-    Class::Class(UC ClassUnit, string Weekday, hour_value StartHour, hour_value Duration, string Type) {
+    Class::Class(const UC& ClassUnit, string Weekday, hour_value StartHour, hour_value Duration, string Type) {
         ClassUnit_ = ClassUnit;
         Weekday_ = Weekday;
         StartHour_ = StartHour;

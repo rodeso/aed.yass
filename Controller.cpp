@@ -1,6 +1,7 @@
 //
-// Created by rodri on 24/10/23.
+// Created by rodri on 01/11/23.
 //
+
 #include <filesystem>
 #include <iostream>
 #include <string>
@@ -11,22 +12,23 @@
 #include "Student.h"
 #include "UC.h"
 #include "Controller.h"
+#include "Schedule.h"
 
 using namespace std;
 namespace uni {
-    void Controller::parseDataStudent(const std::string &file, vector <Student> &students) {
+    void Controller::parseDataStudent(const string &file, vector <Student> &students) {
         ifstream fileStream(file); // Load file
 
         if (!fileStream.is_open()) {
-            throw std::runtime_error("Failed to open file");
+            throw runtime_error("Failed to open file");
         }
 
-        std::string line;
+        string line;
         getline(fileStream, line);
 
         while (getline(fileStream, line)) {
-            std::istringstream iss(line);
-            std::string StudentCode, StudentName, UcCode, ClassCode;
+            istringstream iss(line);
+            string StudentCode, StudentName, UcCode, ClassCode;
 
             if (getline(iss, StudentCode, ',') &&
                 getline(iss, StudentName, ',') &&
@@ -46,9 +48,10 @@ namespace uni {
 
                 // If the student does not exist, create a new Student object
                 if (!studentExists) {
-                    Student newStudent(StudentCode, StudentName);
                     UC newUC(UcCode, ClassCode);
-                    newStudent.addCourseUnit(newUC);
+                    vector<UC> UCList;
+                    UCList.push_back(newUC);
+                    Student newStudent(StudentCode, StudentName, UCList);
                     students.push_back(newStudent);
                 }
             } else {
@@ -56,24 +59,115 @@ namespace uni {
             }
         }
     }
+    void Controller::parseDataClasses(const string &file, vector<Class> &classes) {
+        ifstream fileStream(file); // Load file
 
+        if (!fileStream.is_open()) {
+            throw std::runtime_error("Failed to open file");
+        }
+
+        std::string line;
+        getline(fileStream, line);
+
+        while (getline(fileStream, line)) {
+            std::istringstream iss(line);
+            std::string ClassCode, UcCode, Weekday, StartHour, Duration, Type;
+
+            if (getline(iss, ClassCode, ',') &&
+                getline(iss, UcCode, ',') &&
+                getline(iss, Weekday, ',') &&
+                getline(iss, StartHour, ',') &&
+                getline(iss, Duration, ',') &&
+                getline(iss, Type)) {
+
+                hour_value startHourValue = stod(StartHour);
+                hour_value durationValue = stod(Duration);
+                UC newUC(UcCode, ClassCode);
+                Class newClass(newUC, Weekday, startHourValue, durationValue, Type);
+                classes.push_back(newClass);
+            } else {
+                throw std::runtime_error("Error parsing line");
+            }
+        }
+    }
+    void generateStudentSchedules(vector<Student>& students, const vector<Class>& classes) {
+        for (Student& student : students) {
+            // For each student, initialize their schedule
+            Schedule studentSchedule;
+
+            for (const UC& studentUC : student.getUCList()) {
+                for (const Class& currentClass : classes) {
+                    if (studentUC == currentClass.getUC()) {
+                        // If both UC code and Class code match, add the class to the student's schedule
+                        studentSchedule.addClass(currentClass);
+                    }
+                }
+            }
+
+            // Assign the schedule to the student
+            student.setSchedule(studentSchedule);
+        }
+    }
 
     int command() {
         int input;
         string estudante, turma, uc;
+
+        uni::Controller controller;
+
+        vector<uni::Student> students;
+        controller.parseDataStudent("../students_classes.csv", students);
+/*
+        for (uni::Student student : students) {
+            cout << student.getStudentCode() << ' ' << student.getStudentName();
+            cout << '\n';
+        }
+*/
+        vector<uni::Class> classes;
+        controller.parseDataClasses("../classes.csv", classes);
+/*
+        for (uni::Class currentClass : classes) {
+            cout << currentClass.getUC().getUcCode() << ' ' << currentClass.getWeekday();
+            cout << '\n';
+        }
+*/
+        generateStudentSchedules(students, classes);
+
+        for (const uni::Student& currentStudent : students) {
+            cout << currentStudent.getStudentCode() << '\n';
+            for (const UC& c : currentStudent.getUCList()) {
+                cout << c.getUcCode() << ' ' <<c.getClass() << '\n';
+            }
+        }
+
         do {
             cout << "\n 0. Ver Horário de estudante \n 1. Ver horário de Turma \n 2. Alterar Turma de estudante\n 3. Creditos\n 4. Exit\n\n";
             cin >> input;
             switch (input) {
                 case 0: {
-                    /*
+
                     cout << "Insira o numero de estudante \n";
                     cin>>estudante;
-                    Gestor gestor;
-                    set<EstudanteTurma> horarioestudante =gestor.HorarioEstudante(estudante);
-                    printhorarioestudante(horarioestudante,estudante);
+                    Student selectedStudent;
+                    bool studentFound = false;
+
+                    for (const Student& student : students) {
+                        if (student.getStudentCode() == estudante) {
+                            selectedStudent = student;
+                            studentFound = true;
+                            break;
+                        }
+                    }
+
+                    if (studentFound) {
+                        // Retrieve and display the student's schedule
+                        Schedule studentSchedule = selectedStudent.getSchedule();
+                        studentSchedule.displaySchedule(); // Implement a display method in your Schedule class
+                    } else {
+                        cout << "Student not found." << endl;
+                    }
                     break;
-                    */
+
                 }
                 case 1: {
                     /*
@@ -148,16 +242,7 @@ vector<Student> Controller::lerEstudantes() {
     return estudantes;
 }
 */
-
-
 int main() {
-    uni::Controller controller;
-    std::vector<uni::Student> students;
-    controller.parseDataStudent("/home/rodri/L.EIC/2.1/AED/AED1G135/students_classes.csv", students);
-    for (uni::Student student : students) {
-        cout << student.getStudentCode() << ' ' << student.getStudentName();
-        cout << '\n';
-    }
     uni::command();
     return 0;
 }

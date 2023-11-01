@@ -1,13 +1,17 @@
 //
-// Created by rodri on 31/10/23.
+// Created by rodri on 01/11/23.
 //
 
 #include "UC.h"
 
 namespace uni {
+    bool UC::operator==(const UC& other) const {
+        return (UcCode_ == other.UcCode_) && (ClassCode_ == other.ClassCode_);
+    }
+
     UC::UC() {
-        UcCode_ = "";
-        ClassCode_ = "";
+        UcCode_ = "WHAT";
+        ClassCode_ = "WHAT";
     }
     UC::UC(string UcCode, string ClassCode){
         UcCode_ = UcCode;

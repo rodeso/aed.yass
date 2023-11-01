@@ -1,13 +1,14 @@
 //
-// Created by rodri on 31/10/23.
+// Created by rodri on 01/11/23.
 //
 
-#ifndef PROJECT1_UC_H
-#define PROJECT1_UC_H
+#ifndef AED1G135_UC_H
+#define AED1G135_UC_H
 
 #include <string>
 
 using namespace std;
+
 namespace uni {
 
     class UC {
@@ -16,12 +17,16 @@ namespace uni {
         string ClassCode_;   //code of the class         (Turma)
 
     public:
+        // Overload the equality (==) operator
+        bool operator==(const UC& other) const;
+        //CONSTRUCTORS
         UC();
         UC(string UcCode, string ClassCode);
+        //GETTERS
         string getUcCode() const;
         string getClass() const;
     };
 
 } // uni
 
-#endif //PROJECT1_UC_H
+#endif //AED1G135_UC_H
