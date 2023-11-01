@@ -23,6 +23,7 @@ namespace uni {
         void parseDataStudent(const string& file);
         void parseDataClasses(const string& file);
         void generateStudentSchedule(Student& student);
+        void generateClassSchedule(const string& classCode);
         int command();
 
         vector<Student> lerEstudantes();

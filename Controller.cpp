@@ -101,18 +101,30 @@ namespace uni {
 
     void Controller::generateStudentSchedule(Student& student) {
 
-        vector<Class> studentSchedule;
+        Schedule studentSchedule;
 
         for (const UC& studentUC : student.getUCList()) {
             for (const Class& currentClass : UNIClasses_) {
                 if (studentUC == currentClass.getUC()) {
-                    studentSchedule.push_back(currentClass);
+                    studentSchedule.addClass(currentClass);
                 }
 
             }
         }
 
         student.setSchedule(studentSchedule);
+    }
+    void Controller::generateClassSchedule(const string& classCode) {
+
+        Schedule classSchedule;
+
+        for (const Class& currentClass : UNIClasses_) {
+            if (currentClass.getUC().getClass() == classCode) {
+                classSchedule.addClass(currentClass);
+                // Found a class matching the given class code
+            }
+        }
+        classSchedule.displaySchedule();
     }
 
     int Controller::command() {
@@ -144,7 +156,13 @@ namespace uni {
         }
 */
         while(true) {
-            cout << "\n 0. Ver Horário de estudante \n 1. Ver horário de Turma \n 2. Alterar Turma de estudante\n 3. Creditos\n 4. Exit\n\n";
+            cout << "\n ";
+            cout << "0. Ver Horário de estudante \n ";
+            cout << "1. Ver horário de Turma \n ";
+            cout << "2. Alterar Turma de estudante\n ";
+            cout << "3. Creditos\n ";
+            cout << "4. Exit\n";
+            cout << "\n";
             cin >> input;
             commandHistory.push(input);
             switch (input) {
@@ -168,7 +186,8 @@ namespace uni {
 
                         // Display the schedule
                         cout << "Student's Schedule for " << selectedStudent.getStudentCode() << ":\n";
-                        selectedStudent.displaySchedule();
+                        Schedule schedule = selectedStudent.getSchedule();
+                        schedule.displaySchedule();
 
                     } else {
                         cout << "Student not found." << endl;
@@ -177,13 +196,11 @@ namespace uni {
 
                 }
                 case 1: {
-                    /*
-                    string turma;
-                    Gestor gestor;
+
                     cout<<"Insira a turma de que quer ver horario \n";
                     cin>>turma;
-                    printhorarioturma(gestor.HorarioTurma(),turma);
-                     */
+                    generateClassSchedule(turma);
+
                     break;
                 }
                 case 2: {
@@ -199,8 +216,8 @@ namespace uni {
                     break;
                 }
                 case 3:
-                    cout << "Done by André de Sousa, Rodrigo de Sousa and Álvaro Pacheco\n";
-                    cout << "Group 1305\n";
+                    cout << "Done by André de Sousa, Álvaro Pacheco and Rodrigo de Sousa\n";
+                    cout << "Group 135\n";
                     break;
                 case 4:
                     cout << "Thank you for using our service. Goodbye!\n";

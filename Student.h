@@ -18,7 +18,7 @@ namespace uni {
         string StudentCode_;        //code of student           (ID)
         string StudentName_;        //name of student           (Nome)
         vector<UC> UCList_;           //UCS que tem TIPO ARRAY ou uma lista
-        vector<Class> studentSchedule_;  //Horário MATRIX (?)
+        Schedule studentSchedule_;  //Horário MATRIX (?)
     public:
         //CONSTRUCTOR
         Student();
@@ -27,10 +27,10 @@ namespace uni {
         const string &getStudentCode() const;
         const string &getStudentName() const;
         const vector<UC>& getUCList() const;
-        const vector<Class>& getSchedule() const;
+        const Schedule& getSchedule() const;
         //SETTERS
         void addCourseUnit(const UC& c);
-        void setSchedule(const vector<Class>& schedule);
+        void setSchedule(const Schedule& schedule);
 
         void displaySchedule() const;
 

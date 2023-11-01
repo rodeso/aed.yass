@@ -30,17 +30,17 @@ namespace uni {
         return UCList_;
     }
 
-    const vector<Class>& Student::getSchedule() const {
+    const Schedule& Student::getSchedule() const {
         return studentSchedule_;
     }
     //SETTERS
     void Student::addCourseUnit(const UC& c) {
         UCList_.push_back(c);
     }
-    void Student::setSchedule(const vector<Class>& schedule) {
+    void Student::setSchedule(const Schedule& schedule) {
         studentSchedule_ = schedule;
     }
-
+/*
     void Student::displaySchedule() const {
         cout << "Student's Schedule:\n";
 
@@ -53,6 +53,6 @@ namespace uni {
             cout << "Type: " << classInfo.getType() << endl;
             cout << "---------------------\n";
         }
-    }
+    } */
 
 } //uni
