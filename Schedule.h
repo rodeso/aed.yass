@@ -1,9 +1,9 @@
 //
-// Created by rodri on 27/10/23.
+// Created by rodri on 01/11/23.
 //
 
-#ifndef SCHEDULE_H
-#define SCHEDULE_H
+#ifndef AED1G135_SCHEDULE_H
+#define AED1G135_SCHEDULE_H
 
 #include <vector>
 #include "Class.h" // Include the Class class header
@@ -20,7 +20,8 @@ namespace uni {
         void displaySchedule() const;
 
     private:
-        vector<Class> classes; // List of classes in the schedule
+        vector<Class> classes_; // List of classes in the schedule
     };
 }
-#endif
+
+#endif //AED1G135_SCHEDULE_H

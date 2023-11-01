@@ -1,13 +1,14 @@
 //
-// Created by rodri on 31/10/23.
+// Created by rodri on 01/11/23.
 //
 
-#ifndef PROJECT1_UC_H
-#define PROJECT1_UC_H
+#ifndef AED1G135_UC_H
+#define AED1G135_UC_H
 
 #include <string>
 
 using namespace std;
+
 namespace uni {
 
     class UC {
@@ -28,4 +29,4 @@ namespace uni {
 
 } // uni
 
-#endif //PROJECT1_UC_H
+#endif //AED1G135_UC_H

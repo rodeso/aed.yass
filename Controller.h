@@ -1,25 +1,31 @@
 //
-// Created by rodri on 30/10/23.
+// Created by rodri on 01/11/23.
 //
-#include <vector>
-#include <string>
-#include "Student.h"
 
-#ifndef PROJECT1_CONTROLLER_H
-#define PROJECT1_CONTROLLER_H
+#ifndef AED1G135_CONTROLLER_H
+#define AED1G135_CONTROLLER_H
+
+#include <string>
+#include <vector>
+#include "Student.h"
+#include "Class.h"
+#include "UC.h"
+#include "Schedule.h"
 
 using namespace std;
+
 namespace uni {
     class Controller {
     private:
-        //attributes idk
+
     public:
         void parseDataStudent(const string& file, vector<Student> &students);
         vector<Student> lerEstudantes();
         void parseDataClasses(const string& file, vector<Class> &classes);
         void generateStudentSchedules(vector<Student>& students, const vector<Class>& classes);
+
         //parseDataTurmas();
     };
 }
 
-#endif //PROJECT1_CONTROLLER_H
+#endif //AED1G135_CONTROLLER_H

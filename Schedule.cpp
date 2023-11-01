@@ -1,10 +1,11 @@
 //
-// Created by rodri on 27/10/23.
+// Created by rodri on 01/11/23.
 //
 
 #include <algorithm>
 #include <iostream>
 #include "Schedule.h"
+
 using namespace std;
 
 namespace uni {
@@ -14,11 +15,11 @@ namespace uni {
 
     void Schedule::addClass(const uni::Class &classInfo) {
         // Add a class to the schedule
-        classes.push_back(classInfo);
+        classes_.push_back(classInfo);
     }
 
     const std::vector<Class> &Schedule::getClasses() const {
-        return classes;
+        return classes_;
     }
     void Schedule::sortSchedule() {
         // Define a custom comparison function for sorting
@@ -55,11 +56,11 @@ namespace uni {
         };
 
         // Sort the classes in the schedule using the custom comparison function
-        sort(classes.begin(), classes.end(), compareClasses);
+        sort(classes_.begin(), classes_.end(), compareClasses);
     }
 
     bool Schedule::isClassOverlapping(const Class& newClass) const {
-        for (const Class& classInfo : classes) {
+        for (const Class& classInfo : classes_) {
             // Check if the new class overlaps with an existing class
             if (classInfo.getWeekday() == newClass.getWeekday() &&
                 classInfo.getStart() + classInfo.getDuration() > newClass.getStart() &&
@@ -79,7 +80,7 @@ namespace uni {
     void Schedule::displaySchedule() const {
         cout << "Student's Schedule:\n";
 
-        for (const Class& classInfo : classes) {
+        for (const Class& classInfo : classes_) {
             cout << "Class Code: " << classInfo.getUC().getClass() << endl;
             cout << "UC Code: " << classInfo.getUC().getUcCode() << endl;
             cout << "Weekday: " << classInfo.getWeekday() << endl;

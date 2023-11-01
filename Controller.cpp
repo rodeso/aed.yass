@@ -1,6 +1,7 @@
 //
-// Created by rodri on 24/10/23.
+// Created by rodri on 01/11/23.
 //
+
 #include <filesystem>
 #include <iostream>
 #include <string>
@@ -79,12 +80,12 @@ namespace uni {
                 getline(iss, Duration, ',') &&
                 getline(iss, Type)) {
 
-                    hour_value startHourValue = stod(StartHour);
-                    hour_value durationValue = stod(Duration);
-                    UC newUC(UcCode, ClassCode);
-                    Class newClass(newUC, Weekday, startHourValue, durationValue, Type);
-                    classes.push_back(newClass);
-                } else {
+                hour_value startHourValue = stod(StartHour);
+                hour_value durationValue = stod(Duration);
+                UC newUC(UcCode, ClassCode);
+                Class newClass(newUC, Weekday, startHourValue, durationValue, Type);
+                classes.push_back(newClass);
+            } else {
                 throw std::runtime_error("Error parsing line");
             }
         }
@@ -124,7 +125,12 @@ namespace uni {
 */
         vector<uni::Class> classes;
         controller.parseDataClasses("../classes.csv", classes);
-
+/*
+        for (uni::Class currentClass : classes) {
+            cout << currentClass.getUC().getUcCode() << ' ' << currentClass.getWeekday();
+            cout << '\n';
+        }
+*/
         generateStudentSchedules(students, classes);
 
         for (const uni::Student& currentStudent : students) {
@@ -236,10 +242,7 @@ vector<Student> Controller::lerEstudantes() {
     return estudantes;
 }
 */
-
-
 int main() {
-
     uni::command();
     return 0;
 }

@@ -1,9 +1,7 @@
 //
-// Created by rodri on 24/10/23.
+// Created by rodri on 01/11/23.
 //
-
 #include "Student.h"
-
 using namespace std;
 namespace uni {
     //CONSTRUCTOR
@@ -42,4 +40,3 @@ namespace uni {
     }
 
 } //uni
-

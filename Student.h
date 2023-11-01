@@ -1,13 +1,13 @@
 //
-// Created by rodri on 24/10/23.
+// Created by rodri on 01/11/23.
 //
 
-#ifndef PROJECT1_STUDENT_H
-#define PROJECT1_STUDENT_H
+#ifndef AED1G135_STUDENT_H
+#define AED1G135_STUDENT_H
 
 #include <string>
-#include <list>
-#include "Class.h"
+#include <vector>
+#include "UC.h"
 #include "Schedule.h"
 
 using namespace std;
@@ -36,7 +36,7 @@ namespace uni {
 
     };
 
+
 } // uni
 
-
-#endif //PROJECT1_STUDENT_H
+#endif //AED1G135_STUDENT_H
