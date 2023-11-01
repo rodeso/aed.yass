@@ -143,7 +143,7 @@ namespace uni {
             }
         }
 */
-        do {
+        while(true) {
             cout << "\n 0. Ver Horário de estudante \n 1. Ver horário de Turma \n 2. Alterar Turma de estudante\n 3. Creditos\n 4. Exit\n\n";
             cin >> input;
             commandHistory.push(input);
@@ -208,8 +208,7 @@ namespace uni {
                 default:
                     return 0;
             }
-        } while (input);
-        return 0;
+        }
     }
 }
 
