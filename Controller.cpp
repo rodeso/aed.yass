@@ -9,6 +9,7 @@
 #include <sstream>
 #include <vector>
 #include <stdexcept>
+#include <stack>
 #include "Student.h"
 #include "UC.h"
 #include "Controller.h"
@@ -33,7 +34,7 @@ namespace uni {
             if (getline(iss, StudentCode, ',') &&
                 getline(iss, StudentName, ',') &&
                 getline(iss, UcCode, ',') &&
-                getline(iss, ClassCode)) {
+                getline(iss, ClassCode, '\n')) {
 
                 // Check if a student with this StudentCode already exists
                 bool studentExists = false;
@@ -90,16 +91,21 @@ namespace uni {
             }
         }
     }
+    //TOOL
+    void hexDump(const std::string& str) {
+        for (char c : str) {
+            std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(c) << " ";
+        }
+        std::cout << std::dec << std::endl;
+    }
+
     void Controller::generateStudentSchedule(Student& student) {
 
         vector<Class> studentSchedule;
 
         for (const UC& studentUC : student.getUCList()) {
             for (const Class& currentClass : UNIClasses_) {
-                UC classUC = currentClass.getUC();
-
-                if (studentUC == classUC) {
-                    cout << currentClass.getUC().getUcCode() << endl;
+                if (studentUC == currentClass.getUC()) {
                     studentSchedule.push_back(currentClass);
                 }
 
@@ -110,6 +116,7 @@ namespace uni {
     }
 
     int Controller::command() {
+        stack<int> commandHistory;
         int input;
         string estudante, turma, uc;
 
@@ -139,6 +146,7 @@ namespace uni {
         do {
             cout << "\n 0. Ver Horário de estudante \n 1. Ver horário de Turma \n 2. Alterar Turma de estudante\n 3. Creditos\n 4. Exit\n\n";
             cin >> input;
+            commandHistory.push(input);
             switch (input) {
                 case 0: {
 

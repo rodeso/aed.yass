@@ -25,6 +25,7 @@ namespace uni {
         //GETTERS
         string getUcCode() const;
         string getClass() const;
+        void print() const;
     };
 
 } // uni
