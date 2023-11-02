@@ -37,7 +37,7 @@ namespace uni {
                 getline(iss, UcCode, ',') &&
                 getline(iss, ClassCode, '\n')) {
                 bool studentExists = false;
-                for (auto &student: UNIStudents_) {
+                for (auto &student : UNIStudents_) {
                     if (student.getStudentCode() == StudentCode) {
                         studentExists = true;
                         UC newUC(UcCode, ClassCode);
@@ -98,7 +98,7 @@ namespace uni {
         }
 
         string line;
-        getline(fileStream, line);  // Skip the header line
+        getline(fileStream, line);
 
         while (getline(fileStream, line)) {
             istringstream iss(line);
@@ -170,7 +170,7 @@ namespace uni {
                     Student selectedStudent;
                     bool studentFound = false;
 
-                    for (const Student &student: UNIStudents_) {
+                    for (const Student &student : UNIStudents_) {
                         if (student.getStudentCode() == estudante) {
                             selectedStudent = student;
                             studentFound = true;
@@ -211,7 +211,7 @@ namespace uni {
 
                     // Find the selected student
                     Student *selectedStudent = nullptr;
-                    for (auto &student: UNIStudents_) {
+                    for (auto &student : UNIStudents_) {
                         if (student.getStudentCode() == estudante) {
                             selectedStudent = &student;
                             break;
@@ -221,7 +221,7 @@ namespace uni {
                     if (selectedStudent) {
                         // Find the selected UC in the student's UC list
                         const UC *selectedUC = nullptr;
-                        for (auto &uu: selectedStudent->getUCList()) {
+                        for (auto &uu : selectedStudent->getUCList()) {
                             if (uu.getUcCode() == uc) {
                                 selectedUC = &uu;
                                 break;
@@ -232,7 +232,7 @@ namespace uni {
                             // Find the enrolling class
                             UC enrollingClass;
                             bool classFound = false;
-                            for (const UC &nu: UNIUCs_) {
+                            for (const UC &nu : UNIUCs_) {
                                 if (nu.getClass() == turma) {
                                     enrollingClass = nu;
                                     classFound = true;
@@ -285,16 +285,16 @@ namespace uni {
                     }
                     if (turmaExists) {
                         vector<Student> returnable;
-                        for (Student student: UNIStudents_) {
+                        for (Student student : UNIStudents_) {
                             list<UC> lista = student.getUCList();
-                            for (UC uu: lista) {
+                            for (UC uu : lista) {
                                 if (uu == target) {
                                     returnable.push_back(student);
                                 }
                             }
                         }
                         cout << endl;
-                        for (Student student: returnable) {
+                        for (Student student : returnable) {
                             cout << student.getStudentCode() << ' ' << student.getStudentName() << endl;
                         }
                     } else {
@@ -302,13 +302,44 @@ namespace uni {
                     }
                     break;
                 }
-                case 9:
+                case 5: {
+                    cout << "Insira a UC que deseja pesquisar.\n ";
+                    cin >> uc;
+                    bool ucExists = false;
+                    for (const UC &nu : UNIUCs_) {
+                        if (nu.getUcCode() == uc) {
+                            ucExists = true;
+                            break;
+                        }
+                    }
+                    if (ucExists) {
+                        vector<Student> returnable;
+                        for (Student student : UNIStudents_) {
+                            list<UC> lista = student.getUCList();
+                            for (UC uu : lista) {
+                                if (uu.getUcCode() == uc) {
+                                    returnable.push_back(student);
+                                }
+                            }
+                        }
+                        cout << endl;
+                        for (Student student : returnable) {
+                            cout << student.getStudentCode() << ' ' << student.getStudentName() << endl;
+                        }
+                    } else {
+                        cout << "UC não existe.\n ";
+                    }
+                    break;
+                }
+                case 9: {
                     cout << "Feito por André de Sousa, Álvaro Pacheco e Rodrigo de Sousa\n";
                     cout << "Grupo 135\n";
                     break;
-                case 0:
+                }
+                case 0: {
                     cout << "Obrigado por usar os nossos serviços. Adeus!\n";
                     return 0;
+                }
                 default:
                     return 0;
             }
