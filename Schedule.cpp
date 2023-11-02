@@ -78,16 +78,18 @@ namespace uni {
         return false;
     }
 
+
     void Schedule::displaySchedule() const {
-        cout << "Student's Schedule:\n";
+        cout << "\n";
 
         for (const Class& classInfo : classes_) {
-            cout << "Class Code: " << classInfo.getUC().getClass() << endl;
-            cout << "UC Code: " << classInfo.getUC().getUcCode() << endl;
-            cout << "Weekday: " << classInfo.getWeekday() << endl;
-            cout << "Start Hour: " << classInfo.getStart() << endl;
-            cout << "Duration: " << classInfo.getDuration() << " hours" << endl;
-            cout << "Type: " << classInfo.getType() << endl;
+
+            cout << "Código da UC: " << classInfo.getUC().getUcCode() << endl;
+            cout << "Código da Turma: " << classInfo.getUC().getClass() << endl;
+            cout << "Dia da Semana: " << classInfo.translateWeekday() << endl;
+            cout << "Começo: " << classInfo.getStartTimeString() << endl;
+            cout << "Duração: " << classInfo.getDuration() << " horas" << endl;
+            cout << "Tipo: " << classInfo.getType() << endl;
             cout << "---------------------\n";
         }
     }

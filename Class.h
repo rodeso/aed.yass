@@ -31,7 +31,11 @@ namespace uni {
 
         string getWeekday() const;
 
+        string translateWeekday() const;
+
         hour_value getStart() const;
+
+        string getStartTimeString() const;
 
         hour_value getDuration() const;
 
