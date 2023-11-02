@@ -155,7 +155,9 @@ namespace uni {
             cout << "1. Ver Horário de Estudante \n ";
             cout << "2. Ver Horário de Turma \n ";
             cout << "3. Alterar Turma de Estudante\n ";
-            cout << "4. Créditos\n ";
+            cout << "4. Ver Lista de Estudantes numa Turma\n ";
+            cout << "5. Ver Lista de Estudantes inscritos numa UC\n ";
+            cout << "9. Créditos\n ";
             cout << "0. Sair\n";
             cout << "\n";
             cin >> input;
@@ -163,12 +165,12 @@ namespace uni {
             switch (input) {
                 case 1: {
 
-                    cout << "Insira o número de estudante \n";
-                    cin>>estudante;
+                    cout << "Insira o número de estudante:\n";
+                    cin >> estudante;
                     Student selectedStudent;
                     bool studentFound = false;
 
-                    for (const Student& student : UNIStudents_) {
+                    for (const Student &student: UNIStudents_) {
                         if (student.getStudentCode() == estudante) {
                             selectedStudent = student;
                             studentFound = true;
@@ -186,30 +188,30 @@ namespace uni {
                         schedule.displaySchedule();
 
                     } else {
-                        cout << "Estudante não encontrado" << endl;
+                        cout << "Estudante não encontrado!\n" << endl;
                     }
                     break;
 
                 }
                 case 2: {
 
-                    cout<<"Insira a turma que pretende consultar \n";
-                    cin>>turma;
+                    cout << "Insira a turma que pretende consultar:\n";
+                    cin >> turma;
                     generateClassSchedule(turma);
 
                     break;
                 }
                 case 3: {
-                    cout << "Insira o número de estudante\n";
+                    cout << "Insira o número de estudante:\n";
                     cin >> estudante;
-                    cout << "Insira a UC de que pretende alterar a turma\n";
+                    cout << "Insira a UC de que pretende alterar a turma:\n";
                     cin >> uc;
-                    cout << "Insira a turma para a qual quer mudar \n";
+                    cout << "Insira a turma para a qual quer mudar:\n";
                     cin >> turma;
 
                     // Find the selected student
-                    Student* selectedStudent = nullptr;
-                    for (auto& student : UNIStudents_) {
+                    Student *selectedStudent = nullptr;
+                    for (auto &student: UNIStudents_) {
                         if (student.getStudentCode() == estudante) {
                             selectedStudent = &student;
                             break;
@@ -218,8 +220,8 @@ namespace uni {
 
                     if (selectedStudent) {
                         // Find the selected UC in the student's UC list
-                        const UC* selectedUC = nullptr;
-                        for (auto& uu : selectedStudent->getUCList()) {
+                        const UC *selectedUC = nullptr;
+                        for (auto &uu: selectedStudent->getUCList()) {
                             if (uu.getUcCode() == uc) {
                                 selectedUC = &uu;
                                 break;
@@ -230,7 +232,7 @@ namespace uni {
                             // Find the enrolling class
                             UC enrollingClass;
                             bool classFound = false;
-                            for (const UC& nu : UNIUCs_) {
+                            for (const UC &nu: UNIUCs_) {
                                 if (nu.getClass() == turma) {
                                     enrollingClass = nu;
                                     classFound = true;
@@ -241,7 +243,7 @@ namespace uni {
                             if (classFound) {
                                 bool compatibleSchedule = true;
                                 // Modify the student's UC list
-                                for (const Class& currentClass : UNIClasses_) {
+                                for (const Class &currentClass: UNIClasses_) {
                                     if (enrollingClass == currentClass.getUC()) {
                                         if (selectedStudent->getSchedule().isClassOverlapping(currentClass)) {
                                             compatibleSchedule = false;
@@ -251,7 +253,7 @@ namespace uni {
                                     }
                                 }
                                 if (!compatibleSchedule) {
-                                    cout << "Horário não funciona";
+                                    cout << "Horário não funciona!\n";
                                 } else {
                                     selectedStudent->addCourseUnit(enrollingClass);
                                     selectedStudent->removeCourseUnit(*selectedUC);
@@ -268,11 +270,43 @@ namespace uni {
                     }
                     break;
                 }
-                case 4:
+                case 4: {
+                    cout << "Insira a UC da turma que deseja pesquisar.\n ";
+                    cin >> uc;
+                    cout << "Insira a turma que deseja pesquisar.\n ";
+                    cin >> turma;
+                    UC target(uc, turma);
+                    bool turmaExists = false;
+                    for (const UC &nu: UNIUCs_) {
+                        if (nu == target) {
+                            turmaExists = true;
+                            break;
+                        }
+                    }
+                    if (turmaExists) {
+                        vector<Student> returnable;
+                        for (Student student: UNIStudents_) {
+                            list<UC> lista = student.getUCList();
+                            for (UC uu: lista) {
+                                if (uu == target) {
+                                    returnable.push_back(student);
+                                }
+                            }
+                        }
+                        cout << endl;
+                        for (Student student: returnable) {
+                            cout << student.getStudentCode() << ' ' << student.getStudentName() << endl;
+                        }
+                    } else {
+                        cout << "Turma não existe.\n ";
+                    }
+                    break;
+                }
+                case 9:
                     cout << "Feito por André de Sousa, Álvaro Pacheco e Rodrigo de Sousa\n";
                     cout << "Grupo 135\n";
                     break;
-                case 5:
+                case 0:
                     cout << "Obrigado por usar os nossos serviços. Adeus!\n";
                     return 0;
                 default:
