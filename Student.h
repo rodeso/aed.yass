@@ -20,6 +20,8 @@ namespace uni {
         list<UC> UCList_;           //UCS que tem TIPO ARRAY ou uma lista
         Schedule studentSchedule_;  //Horário MATRIX (?)
     public:
+        bool operator<(const Student& other) const;
+        bool operator==(const Student& other) const;
         //CONSTRUCTOR
         Student();
         Student(string StudentCode, string StudentName, list<UC> UCList);

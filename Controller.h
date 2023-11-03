@@ -7,6 +7,8 @@
 
 #include <string>
 #include <vector>
+#include <set>
+#include <unordered_map>
 #include "Student.h"
 #include "Class.h"
 #include "UC.h"
@@ -19,7 +21,8 @@ namespace uni {
     private:
         vector<Student> UNIStudents_;
         vector<Class> UNIClasses_;
-        vector<UC> UNIUCs_;
+        set<UC> UNIUCs_;
+        unordered_map<string, int> ucStudentCount_;
     public:
         void parseDataStudent(const string& file);
         void parseDataClasses(const string& file);

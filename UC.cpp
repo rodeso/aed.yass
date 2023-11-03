@@ -13,6 +13,13 @@ namespace uni {
         string Class2 = other.getClass();
         return (Code1 == Code2) && (Class1 == Class2);
     }
+    bool UC::operator<(const UC& other) const {
+        // Call the getters to compare attributes
+        if (getUcCode() == other.getUcCode()) {
+            return getClass() < other.getClass();
+        }
+        return getUcCode() < other.getUcCode();
+    }
 
     UC::UC() {
         UcCode_ = "WHAT";

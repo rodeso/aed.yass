@@ -7,6 +7,13 @@
 
 using namespace std;
 namespace uni {
+    //TO MAKE SETS
+    bool Student::operator<(const Student& other) const {
+        return StudentCode_ < other.StudentCode_;
+    }
+    bool Student::operator==(const uni::Student &other) const {
+        return StudentCode_ == other.StudentCode_;
+    }
     //CONSTRUCTOR
     Student::Student() {
         StudentName_ = "";

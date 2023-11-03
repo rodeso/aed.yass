@@ -19,6 +19,7 @@ namespace uni {
     public:
         // Overload the equality (==) operator
         bool operator==(const UC& other) const;
+        bool operator<(const UC& other) const;
         //CONSTRUCTORS
         UC();
         UC(string UcCode, string ClassCode);
