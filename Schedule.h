@@ -16,7 +16,7 @@ namespace uni {
         void addClass(const Class &classInfo); // Add a class to the schedule
         const vector<Class> &getClasses() const; // Get the list of classes in the schedule
         void sortSchedule();
-        bool isClassOverlapping(const Class& newClass) const;
+        bool isUCOverlapping(const UC& uc) const;
         void displaySchedule() const;
 
     private:

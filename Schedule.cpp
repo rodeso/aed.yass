@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <list>
 #include "Schedule.h"
 
 using namespace std;
@@ -59,22 +60,36 @@ namespace uni {
         sort(classes_.begin(), classes_.end(), compareClasses);
     }
 
-    bool Schedule::isClassOverlapping(const Class& newClass) const {
+    bool Schedule::isUCOverlapping(const UC& uc) const {
+        // Extract the classes associated with the given UC
+        std::list<Class> ucClasses;
         for (const Class& classInfo : classes_) {
-            // Check if the new class overlaps with an existing class
-            if (classInfo.getWeekday() == newClass.getWeekday() &&
-                classInfo.getStart() + classInfo.getDuration() > newClass.getStart() &&
-                newClass.getStart() + newClass.getDuration() > classInfo.getStart() &&
-                !(
-                        (classInfo.getType() == "T" && newClass.getType() == "TP") ||
-                        (classInfo.getType() == "TP" && newClass.getType() == "T") ||
-                        (classInfo.getType() == "T" && newClass.getType() == "T") ||
-                        (classInfo.getType() == "T" && newClass.getType() == "PL")
-                )) {
-                // Classes overlap, and their types do not allow overlap
-                return true;
+            if (classInfo.getUC().getUcCode() == uc.getUcCode()) {
+                ucClasses.push_back(classInfo);
             }
         }
+
+        // Check for overlapping classes within the UC
+        for (const Class& newClass : ucClasses) {
+            for (const Class& classInfo : ucClasses) {
+                if (&newClass != &classInfo) {
+                    // Check if the new class overlaps with an existing class within the same UC
+                    if (newClass.getWeekday() == classInfo.getWeekday() &&
+                        newClass.getStart() + newClass.getDuration() > classInfo.getStart() &&
+                        classInfo.getStart() + classInfo.getDuration() > newClass.getStart() &&
+                        !(
+                                (newClass.getType() == "T" && classInfo.getType() == "TP") ||
+                                (newClass.getType() == "TP" && classInfo.getType() == "T") ||
+                                (newClass.getType() == "T" && classInfo.getType() == "T") ||
+                                (newClass.getType() == "T" && classInfo.getType() == "PL")
+                        )) {
+                        // Classes overlap, and their types do not allow overlap
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
 

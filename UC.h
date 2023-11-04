@@ -15,7 +15,7 @@ namespace uni {
     private:
         string UcCode_;      //code of course unit       (UC)
         string ClassCode_;   //code of the class         (Turma)
-
+        int MAX = 28;
     public:
         // Overload the equality (==) operator
         bool operator==(const UC& other) const;
@@ -26,7 +26,10 @@ namespace uni {
         //GETTERS
         string getUcCode() const;
         string getClass() const;
+        int getCapacity() const;
         void print() const;
+        //SETTERS
+        void setCapacity(int x);
     };
 
 } // uni

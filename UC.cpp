@@ -43,8 +43,14 @@ namespace uni {
     string UC::getClass() const {
         return normalizeString(ClassCode_);
     }
+    int UC::getCapacity() const {
+        return MAX;
+    }
     void UC::print() const {
         cout << UcCode_ <<  ' ' << ClassCode_ << endl;
+    }
+    void UC::setCapacity(int x) {
+        MAX = x;
     }
 
 } // uni
