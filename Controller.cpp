@@ -26,7 +26,7 @@ namespace uni {
         ifstream fileStream(file);
 
         if (!fileStream.is_open()) {
-            throw runtime_error("O ficheiro não abriu!");
+            throw runtime_error("O ficheiro não abriu! pff tirar os dois pontos dos 3 abaixo da linha 255 do Controller.cpp");
         }
 
         string line;
@@ -67,7 +67,7 @@ namespace uni {
         ifstream fileStream(file);
 
         if (!fileStream.is_open()) {
-            throw std::runtime_error("O ficheiro não abriu!");
+            throw std::runtime_error("O ficheiro não abriu! pff tirar os dois pontos dos 3 abaixo da linha 255 do Controller.cpp");
         }
 
         std::string line;
@@ -98,7 +98,7 @@ namespace uni {
         ifstream fileStream(file);
 
         if (!fileStream.is_open()) {
-            throw runtime_error("O ficheiro não abriu!");
+            throw runtime_error("O ficheiro não abriu! pff tirar os dois pontos dos 3 abaixo da linha 255 do Controller.cpp");
         }
 
         string line;
@@ -252,11 +252,11 @@ namespace uni {
         stack<string> commandHistory;
         int input;
         string estudante, turma, uc;
-
         parseDataStudent("../students_classes.csv");
         parseDataClasses("../classes.csv");
         parseDataUCs("../classes_per_uc.csv");
-
+        cout << endl << endl << endl;
+        cout << "Gestor de Horários inicializado!\n";
         while(true) {
             cout << "\n ";
             cout << "1. Consultar Estudante\n ";
