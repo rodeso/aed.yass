@@ -7,6 +7,7 @@
 
 using namespace std;
 namespace uni {
+
     //TO MAKE SETS
     bool Student::operator<(const Student& other) const {
         return StudentCode_ < other.StudentCode_;
@@ -14,6 +15,7 @@ namespace uni {
     bool Student::operator==(const uni::Student &other) const {
         return StudentCode_ == other.StudentCode_;
     }
+
     //CONSTRUCTOR
     Student::Student() {
         StudentName_ = "";
@@ -26,6 +28,7 @@ namespace uni {
         StudentName_ = StudentName;
         UCList_ = UCList;
     }
+
     //GETTERS
     const string &Student::getStudentCode() const {
         return StudentCode_;
@@ -33,14 +36,13 @@ namespace uni {
     const string &Student::getStudentName() const {
         return StudentName_;
     }
-
     const list<UC>& Student::getUCList() const{
         return UCList_;
     }
-
     const Schedule& Student::getSchedule() const {
         return studentSchedule_;
     }
+
     //SETTERS
     void Student::addCourseUnit(const UC& c) {
         UCList_.push_back(c);
@@ -48,26 +50,10 @@ namespace uni {
     void Student::removeCourseUnit(const UC& c) {
         auto it = remove_if(UCList_.begin(), UCList_.end(),
                                  [c](const UC& uc) { return uc == c; });
-
-        // Erase the removed elements from the list
         UCList_.erase(it, UCList_.end());
     }
     void Student::setSchedule(const Schedule& schedule) {
         studentSchedule_ = schedule;
     }
-/*
-    void Student::displaySchedule() const {
-        cout << "Student's Schedule:\n";
-
-        for (const Class& classInfo : studentSchedule_) {
-            cout << "Class Code: " << classInfo.getUC().getClass() << endl;
-            cout << "UC Code: " << classInfo.getUC().getUcCode() << endl;
-            cout << "Weekday: " << classInfo.getWeekday() << endl;
-            cout << "Start Hour: " << classInfo.getStart() << endl;
-            cout << "Duration: " << classInfo.getDuration() << " hours" << endl;
-            cout << "Type: " << classInfo.getType() << endl;
-            cout << "---------------------\n";
-        }
-    } */
 
 } //uni

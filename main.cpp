@@ -2,13 +2,10 @@
 // Created by rodri on 01/11/23.
 //
 #include "Controller.h"
-#include <iostream>
-#include <iomanip>
 
-
-
+//The real main
 int main() {
-    uni::Controller controller;
-    controller.command();
-    return 0;
+    uni::Controller controller; //Creates the magic
+    controller.command();       //Uses the magic
+    return 0;                   //Ends the magic
 }

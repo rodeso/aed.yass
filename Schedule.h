@@ -6,21 +6,24 @@
 #define AED1G135_SCHEDULE_H
 
 #include <vector>
-#include "Class.h" // Include the Class class header
+#include "Class.h"
 
 using namespace std;
+
 namespace uni {
     class Schedule {
+    private:
+        vector<Class> classes_;
+
     public:
-        Schedule(); // Constructor
-        void addClass(const Class &classInfo); // Add a class to the schedule
-        const vector<Class> &getClasses() const; // Get the list of classes in the schedule
+        //Constructor
+        Schedule();
+
+        //MISC
+        void addClass(const Class &classInfo);
         void sortSchedule();
         bool isUCOverlapping(const UC& uc) const;
         void displaySchedule() const;
-
-    private:
-        vector<Class> classes_; // List of classes in the schedule
     };
 }
 

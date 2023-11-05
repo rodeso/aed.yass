@@ -20,11 +20,13 @@
 
 using namespace std;
 namespace uni {
+
+    //Parsers
     void Controller::parseDataStudent(const string &file) {
         ifstream fileStream(file);
 
         if (!fileStream.is_open()) {
-            throw runtime_error("O ficheiro não abriu");
+            throw runtime_error("O ficheiro não abriu!");
         }
 
         string line;
@@ -57,16 +59,15 @@ namespace uni {
                     ucStudentCount_[UcCode]=1;
                 }
             } else {
-                throw runtime_error("Erro na linha");
+                throw runtime_error("Erro na linha!");
             }
         }
     }
-
     void Controller::parseDataClasses(const string &file) {
         ifstream fileStream(file);
 
         if (!fileStream.is_open()) {
-            throw std::runtime_error("Failed to open file");
+            throw std::runtime_error("O ficheiro não abriu!");
         }
 
         std::string line;
@@ -89,16 +90,15 @@ namespace uni {
                 Class newClass(newUC, Weekday, startHourValue, durationValue, Type);
                 UNIClasses_.push_back(newClass);
             } else {
-                throw runtime_error("Erro na linha");
+                throw runtime_error("Erro na linha!");
             }
         }
     }
-
     void Controller::parseDataUCs(const string& file) {
         ifstream fileStream(file);
 
         if (!fileStream.is_open()) {
-            throw runtime_error("Failed to open file");
+            throw runtime_error("O ficheiro não abriu!");
         }
 
         string line;
@@ -114,10 +114,12 @@ namespace uni {
                 UC newUC(UcCode, ClassCode);
                 UNIUCs_.push_back(newUC);
             } else {
-                throw runtime_error("Error parsing line");
+                throw runtime_error("Erro na linha!");
             }
         }
     }
+
+    //Generators
     void Controller::generateStudentSchedule(Student& student) {
 
         Schedule studentSchedule;
@@ -131,7 +133,6 @@ namespace uni {
         }
         student.setSchedule(studentSchedule);
     }
-
     void Controller::generateClassSchedule(const string& classCode) {
 
         Schedule classSchedule;
@@ -145,11 +146,8 @@ namespace uni {
         classSchedule.displaySchedule();
     }
 
+    //Changing/Adding Class
     bool Controller::changeStudentClass(Student& selectedStudent, const string& ucCode, const string& newClassCode, int max) {
-        // Find the selected student
-
-
-        // Find the selected UC in the student's UC list
         const UC* selectedUC = nullptr;
         for (auto& uc : selectedStudent.getUCList()) {
             if (uc.getUcCode() == ucCode) {
@@ -163,7 +161,6 @@ namespace uni {
             return false;
         }
 
-        // Find the enrolling class
         UC* enrollingClass = nullptr;
         for (auto& uc : UNIUCs_) {
             if (uc.getUcCode() == ucCode && uc.getClass() == newClassCode) {
@@ -177,7 +174,6 @@ namespace uni {
             return false;
         }
 
-        // Check if student is already in the enrolling class for the selected UC
         string oldClassCode = selectedUC->getClass();
         if (selectedUC->getClass() == newClassCode) {
             cout << "Estudante já está inscrito nesta turma!\n";
@@ -201,11 +197,11 @@ namespace uni {
             cout << "Conflito de horário!\n";
             return false;
         }
+
         UC newUC(ucCode, newClassCode);
         UC oldUC(ucCode, oldClassCode);
         selectedStudent.addCourseUnit(newUC);
         selectedStudent.removeCourseUnit(oldUC);
-
         cout << "Turma alterada com sucesso!\n";
         return true;
     }
@@ -214,6 +210,7 @@ namespace uni {
             cout << "O estudante já está inscrito em 7 UCs!\n";
             return false;
         }
+
         UC* newUC = nullptr;
         for (auto& uc : UNIUCs_) {
             if (uc.getUcCode() == ucCode && uc.getClass() == newClassCode) {
@@ -234,6 +231,7 @@ namespace uni {
                 }
             }
         }
+
         newUC->setCapacity(max);
         if (currentClassCount >= newUC->getCapacity()) {
             cout << "Capacidade da turma excedida!\n";
@@ -245,14 +243,11 @@ namespace uni {
         }
 
         selectedStudent.addCourseUnit(*newUC);
-
         cout << "UC adicionada com sucesso!\n";
         return true;
     }
 
-
-
-
+    //The Process that makes it all possible / "main"
     int Controller::command() {
         stack<string> commandHistory;
         int input;
@@ -275,7 +270,7 @@ namespace uni {
             cout << "\n";
             cin >> input;
             switch (input) {
-                case 1: {
+                case 1: {   //Estudante
                     cout << "Insira o número de estudante:\n";
                     cin >> estudante;
                     bool studentFound1 = false;
@@ -300,13 +295,12 @@ namespace uni {
                         cout << "4. Remover uma UC\n ";
                         cout << "5. Trocar de Turma\n ";
                         cout << "0. Voltar atrás\n ";
-                        cout << "\n ";
                         cin >> input;
                         if (input == 0) {
                             break;
                         }
                         switch (input) {
-                            case 1: {
+                            case 1: { //Lista UCs
                                 list<UC> lista = Estudante.getUCList();
                                 for (UC uu: lista) {
                                     cout << uu.getUcCode() << " Turma: " << uu.getClass() << endl;
@@ -314,7 +308,7 @@ namespace uni {
                                 commandHistory.push("1. Ver UCs inscritas.");
                                 break;
                             }
-                            case 2: {
+                            case 2: { //Horário
                                 generateStudentSchedule(Estudante);
                                 cout << "Horário do estudante n.º " << Estudante.getStudentCode() << ":\n";
                                 Schedule schedule = Estudante.getSchedule();
@@ -323,7 +317,7 @@ namespace uni {
                                 commandHistory.push("2. Ver Horário.");
                                 break;
                             }
-                            case 3: {
+                            case 3: { //Inscrever UC
                                 int z;
                                 cout << "Insira a UC que pretende ingressar:\n";
                                 cin >> uc;
@@ -335,7 +329,7 @@ namespace uni {
                                 commandHistory.push("3. Inscrever numa UC.");
                                 break;
                             }
-                            case 4: {
+                            case 4: { //Remover UC
                                 cout << "Insira a UC que pretende cancelar:\n";
                                 cin >> uc;
                                 bool ucFound = false;
@@ -356,7 +350,7 @@ namespace uni {
                                 commandHistory.push("4. Remover uma UC.");
                                 break;
                             }
-                            case 5: {
+                            case 5: { //Trocar Turma
                                 int z;
                                 cout << "Insira a UC de que pretende alterar a turma:\n";
                                 cin >> uc;
@@ -375,7 +369,7 @@ namespace uni {
                     }
                     break;
                 }
-                case 2: {
+                case 2: { //Turma
                     cout << "Insira a UC da Turma que pretende consultar:\n";
                     cin >> uc;
                     cout << "Insira a Turma que pretende consultar:\n";
@@ -403,7 +397,7 @@ namespace uni {
                             break;
                         }
                         switch (input) {
-                            case 1: {
+                            case 1: { //Lista UCs
                                 queue<UC> fila;
                                 for (UC uu : UNIUCs_) {
                                     if (uu.getClass() == turma)
@@ -417,12 +411,12 @@ namespace uni {
                                 commandHistory.push("1. Ver UCs da Turma.");
                                 break;
                             }
-                            case 2: {
+                            case 2: { //Horário
                                 generateClassSchedule(turma);
                                 commandHistory.push("2. Ver Horário da Turma.");
                                 break;
                             }
-                            case 3: {
+                            case 3: { //Estudantes
                                 vector<Student> returnable;
                                 for (Student student : UNIStudents_) {
                                     list<UC> lista = student.getUCList();
@@ -445,7 +439,7 @@ namespace uni {
                     }
                     break;
                 }
-                case 3: {
+                case 3: { //UC
                     cout << "Insira a UC pretende consultar: \n";
                     cin >> uc;
                     bool ucFound1 = false;
@@ -472,7 +466,7 @@ namespace uni {
                             break;
                         }
                         switch (input) {
-                            case 1: {
+                            case 1: { //Estudantes
                                 vector<Student> returnable;
                                 for (Student student : UNIStudents_) {
                                     list<UC> lista = student.getUCList();
@@ -489,12 +483,12 @@ namespace uni {
                                 commandHistory.push("1. Ver Estudantes Inscritos.");
                                 break;
                             }
-                            case 2: {
+                            case 2: { //Número
                                 cout << ucStudentCount_[uc];
                                 commandHistory.push("2. Ver Número de Estudantes Inscritos.");
                                 break;
                             }
-                            case 3: {
+                            case 3: { //Turmas
                                 queue<UC> fila;
                                 for (UC uu : UNIUCs_) {
                                     if (uu.getUcCode() == uc)
@@ -514,7 +508,7 @@ namespace uni {
                     }
                     break;
                 }
-                case 4: {
+                case 4: { //Lista Estudantes
                     multimap<int, std::string> sortedStudents;
                     for (const Student &student : UNIStudents_) {
                         sortedStudents.insert({std::stoi(student.getStudentCode()), student.getStudentName()});
@@ -526,12 +520,11 @@ namespace uni {
                     commandHistory.push("4. Ver Lista Ordenada de Estudantes.");
                     break;
                 }
-                case 5: {
+                case 5: { //Lista UCs
                     multimap<int, std::string, greater<int>> sortedUcs;
                     for (const auto &entry : ucStudentCount_) {
                         sortedUcs.insert({entry.second, entry.first});
                     }
-
                     cout << "UCs por ordem decrescente:\n";
                     for (const auto &pair : sortedUcs) {
                         cout << pair.second << " - Estudantes: " << pair.first << endl;
@@ -539,17 +532,24 @@ namespace uni {
                     commandHistory.push("5. Ver Lista Ordenada de UCs.");
                     break;
                 }
-                case 8: {
-                    cout << commandHistory.top() << endl;
-                    commandHistory.pop();
+                //Implementações futuras se for necessário
+                //case 6:
+                //case 7:
+                case 8: { //Histórico
+                    if (!commandHistory.empty()) {
+                        cout << commandHistory.top() << endl;
+                        commandHistory.pop();
+                    } else {
+                        cout << "Não há ações recentes para mostrar!\n";
+                    }
                     break;
                 }
-                case 9: {
+                case 9: { //Créditos
                     cout << "Feito por André de Sousa, Álvaro Pacheco e Rodrigo de Sousa;\n";
                     cout << "Grupo 135.\n";
                     break;
                 }
-                case 0: {
+                case 0: { //Terminar
                     cout << "Obrigado por usar os nossos serviços. Adeus!\n";
                     return 0;
                 }

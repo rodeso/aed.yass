@@ -10,7 +10,7 @@ using namespace std;
 
 namespace uni {
 
-    // Constructor implementation
+    //Constructor
     Class::Class(const UC& ClassUnit, string Weekday, hour_value StartHour, hour_value Duration, string Type) {
         ClassUnit_ = ClassUnit;
         Weekday_ = Weekday;
@@ -19,19 +19,30 @@ namespace uni {
         Type_ = Type;
     }
 
-    // Destructor implementation
-    Class::~Class() {
-    }
-
-    // Getter methods
+    //Getters
     UC Class::getUC() const {
         return ClassUnit_;
     }
-
     string Class::getWeekday() const {
         return Weekday_;
     }
-
+    hour_value Class::getStart() const {
+        return StartHour_;
+    }
+    string Class::getStartTimeString() const {
+        int hours = static_cast<int>(StartHour_);
+        int minutes = static_cast<int>((StartHour_ - hours) * 60);
+        std::ostringstream oss;
+        oss << std::setfill('0') << std::setw(2) << hours << ":" << std::setfill('0') << std::setw(2) << minutes;
+        return oss.str();
+    }
+    hour_value Class::getDuration() const {
+        return Duration_;
+    }
+    string Class::getType() const {
+        return Type_;
+    }
+    //Translator
     string Class::translateWeekday() const {
         map<string, string> translationMap = {
                 {"Monday", "Segunda-feira"},
@@ -53,24 +64,6 @@ namespace uni {
         }
     }
 
-    hour_value Class::getStart() const {
-        return StartHour_;
-    }
-    string Class::getStartTimeString() const {
-        int hours = static_cast<int>(StartHour_);
-        int minutes = static_cast<int>((StartHour_ - hours) * 60);
 
-        std::ostringstream oss;
-        oss << std::setfill('0') << std::setw(2) << hours << ":" << std::setfill('0') << std::setw(2) << minutes;
-
-        return oss.str();
-    }
-    hour_value Class::getDuration() const {
-        return Duration_;
-    }
-
-    string Class::getType() const {
-        return Type_;
-    }
 
 } // namespace uni

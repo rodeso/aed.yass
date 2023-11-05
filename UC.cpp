@@ -6,6 +6,8 @@
 #include "UC.h"
 
 namespace uni {
+
+    //To make sets
     bool UC::operator==(const UC& other) const {
         string Code1 = this->getUcCode();
         string Code2 = other.getUcCode();
@@ -21,14 +23,17 @@ namespace uni {
         return getUcCode() < other.getUcCode();
     }
 
+    //Constructors
     UC::UC() {
-        UcCode_ = "WHAT";
-        ClassCode_ = "WHAT";
+        UcCode_ = "Lorem";
+        ClassCode_ = "Ipsum";
     }
     UC::UC(string UcCode, string ClassCode){
         UcCode_ = UcCode;
         ClassCode_ = ClassCode;
     }
+
+    //Getters
     string UC::getUcCode() const {
         return UcCode_;
     }
@@ -39,15 +44,11 @@ namespace uni {
         }
         return result;
     }
-
     string UC::getClass() const {
         return normalizeString(ClassCode_);
     }
     int UC::getCapacity() const {
         return MAX;
-    }
-    void UC::print() const {
-        cout << UcCode_ <<  ' ' << ClassCode_ << endl;
     }
     void UC::setCapacity(int x) {
         MAX = x;

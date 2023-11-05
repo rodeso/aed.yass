@@ -20,26 +20,21 @@ namespace uni {
         hour_value StartHour_;    //start time of the class         (Horário)
         hour_value Duration_;     //duration of the class           (Duração)
         string Type_;             //type of class: T, TP, PL        (Tipo)
+
     public:
-        //constructors
+        //Constructor
         Class(const UC &ClassUnit, string Weekday, hour_value StartHour, hour_value Duration, string Type);
 
-        virtual ~Class();
-
-        //getters
+        //Getters
         UC getUC() const;
-
         string getWeekday() const;
-
-        string translateWeekday() const;
-
         hour_value getStart() const;
-
         string getStartTimeString() const;
-
         hour_value getDuration() const;
-
         string getType() const;
+
+        //Translator
+        string translateWeekday() const;
     };
 }
 #endif //AED1G135_CLASS_H

@@ -10,25 +10,27 @@
 using namespace std;
 
 namespace uni {
-
     class UC {
     private:
         string UcCode_;      //code of course unit       (UC)
         string ClassCode_;   //code of the class         (Turma)
-        int MAX = 28;
+        int MAX = 28;       //default max capactity      (Cap)
+
     public:
         // Overload the equality (==) operator
         bool operator==(const UC& other) const;
         bool operator<(const UC& other) const;
-        //CONSTRUCTORS
+
+        //Constructors
         UC();
         UC(string UcCode, string ClassCode);
-        //GETTERS
+
+        //Getters
         string getUcCode() const;
         string getClass() const;
         int getCapacity() const;
-        void print() const;
-        //SETTERS
+
+        //Setters
         void setCapacity(int x);
     };
 

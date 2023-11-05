@@ -22,14 +22,22 @@ namespace uni {
         vector<Class> UNIClasses_;
         vector<UC> UNIUCs_;
         unordered_map<string, int> ucStudentCount_;
+
     public:
+        //Parsers
         void parseDataStudent(const string& file);
         void parseDataClasses(const string& file);
         void parseDataUCs(const string& file);
+
+        //Generators
         void generateStudentSchedule(Student& student);
         void generateClassSchedule(const string& classCode);
+
+        //Changing/Adding Class
         bool changeStudentClass(Student& selectedStudent, const string& ucCode, const string& newClassCode, int max);
         bool addStudentClass(Student& selectedStudent, const string& ucCode, const string& newClassCode, int max);
+
+        //The Process that makes it all possible / "main"
         int command();
     };
 }

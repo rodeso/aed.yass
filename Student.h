@@ -11,6 +11,7 @@
 #include "Schedule.h"
 
 using namespace std;
+
 namespace uni {
 
     class Student {
@@ -18,26 +19,26 @@ namespace uni {
         string StudentCode_;        //code of student           (ID)
         string StudentName_;        //name of student           (Nome)
         list<UC> UCList_;           //UCS que tem TIPO ARRAY ou uma lista
-        Schedule studentSchedule_;  //Horário MATRIX (?)
+        Schedule studentSchedule_;  //Horário
     public:
         bool operator<(const Student& other) const;
         bool operator==(const Student& other) const;
-        //CONSTRUCTOR
+
+        //Constructors
         Student();
         Student(string StudentCode, string StudentName, list<UC> UCList);
-        //GETTERS
+
+        //Getters
         const string &getStudentCode() const;
         const string &getStudentName() const;
         const list<UC>& getUCList() const;
         const Schedule& getSchedule() const;
-        //SETTERS
+
+        //Setters
         void addCourseUnit(const UC& c);
         void removeCourseUnit(const UC& c);
         void setSchedule(const Schedule& schedule);
-
     };
-
-
 } // uni
 
 #endif //AED1G135_STUDENT_H
