@@ -326,6 +326,12 @@ namespace uni {
                                 cout << "Insira a Turma que pretende ingressar:\n";
                                 cin >> turma;
                                 addStudentClass(Estudante, uc, turma, z);
+                                for (Student &student : UNIStudents_) {
+                                    if (student.getStudentCode() == Estudante.getStudentCode()) {
+                                        student = Estudante;
+                                        break;
+                                    }
+                                }
                                 commandHistory.push("3. Inscrever numa UC.");
                                 break;
                             }
@@ -343,6 +349,12 @@ namespace uni {
                                 }
                                 if (ucFound) {
                                     Estudante.removeCourseUnit(target);
+                                    for (Student &student : UNIStudents_) {
+                                        if (student.getStudentCode() == Estudante.getStudentCode()) {
+                                            student = Estudante;
+                                            break;
+                                        }
+                                    }
                                     cout << "UC Removida com sucesso!\n";
                                 } else {
                                     cout << "UC não encontrada!\n";
@@ -360,6 +372,12 @@ namespace uni {
                                 cin >> turma;
 
                                 changeStudentClass(Estudante, uc, turma, z);
+                                for (Student &student : UNIStudents_) {
+                                    if (student.getStudentCode() == Estudante.getStudentCode()) {
+                                        student = Estudante;
+                                        break;
+                                    }
+                                }
                                 commandHistory.push("5. Trocar de Turma.");
                                 break;
                             }
