@@ -1,4 +1,0 @@
-/home/rodri/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /home/rodri/L.EIC/2.1/AED/AED1G135 -B /home/rodri/L.EIC/2.1/AED/AED1G135/cmake-build-debug
--- Configuring done (0.0s)
--- Generating done (0.0s)
--- Build files have been written to: /home/rodri/L.EIC/2.1/AED/AED1G135/cmake-build-debug
