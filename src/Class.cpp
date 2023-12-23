@@ -2,7 +2,7 @@
 // Created by rodri on 01/11/23.
 //
 
-#include "Class.h"
+#include "../include/Class.h"
 #include <iomanip>
 #include <map>
 

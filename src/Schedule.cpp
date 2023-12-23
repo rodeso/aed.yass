@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <iostream>
 #include <list>
-#include "Schedule.h"
+#include "../include/Schedule.h"
 
 using namespace std;
 

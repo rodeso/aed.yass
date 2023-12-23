@@ -13,10 +13,10 @@
 #include <stack>
 #include <map>
 #include <queue>
-#include "Student.h"
-#include "UC.h"
-#include "Controller.h"
-#include "Schedule.h"
+#include "../include/Student.h"
+#include "../include/UC.h"
+#include "../include/Controller.h"
+#include "../include/Schedule.h"
 
 using namespace std;
 namespace uni {
@@ -252,9 +252,9 @@ namespace uni {
         stack<string> commandHistory;
         int input;
         string estudante, turma, uc;
-        parseDataStudent("../students_classes.csv");
-        parseDataClasses("../classes.csv");
-        parseDataUCs("../classes_per_uc.csv");
+        parseDataStudent("../csv/students_classes.csv");
+        parseDataClasses("../csv/classes.csv");
+        parseDataUCs("../csv/classes_per_uc.csv");
         cout << endl << endl << endl;
         cout << "Gestor de Horários inicializado!\n";
         while(true) {

@@ -1,7 +1,7 @@
 //
 // Created by rodri on 01/11/23.
 //
-#include "Controller.h"
+#include "include/Controller.h"
 
 //The real main
 int main() {

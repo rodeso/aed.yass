@@ -3,7 +3,7 @@
 //
 #include <iostream>
 #include <algorithm>
-#include "Student.h"
+#include "../include/Student.h"
 
 using namespace std;
 namespace uni {
